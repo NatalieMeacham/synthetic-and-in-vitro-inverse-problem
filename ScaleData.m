@@ -1,4 +1,4 @@
-function [meanmatnorm,concvec]=ScaleData(choosedata)
+function [meanmatnorm,concvec,errmat]=ScaleData(choosedata)
 
 load('MONOCLONAL_DATA.mat');
 load('Mixture_Data.mat');
@@ -33,13 +33,18 @@ concvec=linspace(1,concsize,concsize);
 meanvec = zeros(tsize,1);
 meanmat = zeros(concsize,tsize);
 concnum=length(concvec);
+sdmat = zeros(concsize,tsize);
+errmat = zeros(concsize,tsize);
 
 for i=tvec
     for j=concvec
-        m=mean(T(:,j,i),'omitnan');
+        %m=mean(T(:,j,i),'omitnan');
+        [s,m] = std(T(:,j,i),'omitnan');
     %m = mean(T(i,:),'omitnan');
     %meanvec(i)=m;
-        meanmat(j,i)=m;
+        meanmat(j,i)= m;
+        sdmat(j,i) = s;
+        errmat(j,i) = s/sqrt(length(T(:,j,i)) - sum(isnan(T(:,j,i))));
     end
 end
 
@@ -49,19 +54,31 @@ if choosedata=='R250'
 elseif choosedata=='R500'
     maxval=3*max(meanmat,[],'all');
 elseif choosedata=='S500'
-    maxval=10*max(meanmat,[],'all'); %normally 10
+    maxval=10*max(meanmat,[],'all');
 elseif choosedata=='S100'
-    maxval=10*max(meanmat,[],'all'); %normally 10
+    maxval=10*max(meanmat,[],'all');
 else 
     maxval=5*max(meanmat,[],'all');
 end
 
 %normalize the data
+
+%probably what I should be doing instead now is to normalize all the data,
+%not just the mean, and then take the mean and sd and error after
+%normalizing 
 meanmatnorm=zeros(size(meanmat));
+
+Tnormalized = T./maxval;
+
 for a=concvec
     for t=tvec
-        s=meanmat(a,t)/maxval; %multiply by 10 because data still growing?
-        meanmatnorm(a,t)=s;
+        %s=meanmat(a,t)/maxval; %multiply by 10 because data still growing?
+        %meanmatnorm(a,t)=s;
+        %
+        [s,m] = std(Tnormalized(:,a,t),'omitnan');
+        meanmatnorm(a,t)= m;
+        sdmat(a,t) = s;
+        errmat(a,t) = s/sqrt(length(T(:,a,t)) - sum(isnan(T(:,a,t))));
     end 
 end
 
