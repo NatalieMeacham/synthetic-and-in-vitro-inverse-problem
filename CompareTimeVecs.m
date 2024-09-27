@@ -281,9 +281,13 @@ gls_optpar_u_100 = [ 0.025216360354617
    hold on
      stem(linspace(0,1,length(gls_optpar_n_25)),gls_optpar_n_25*length(gls_optpar_n_25),'--o','MarkerSize',7,'LineWidth',2)
      hold on
+     ylabel('Recovered Prop. of Pop.')
      yyaxis right
      plot(linspace(0,1,101),sprobs_n_t100,'k')
      legend('100 time points','50 time points','25 time points')
+     title('Recovered Normal PMF for Different Time Steps')
+     xlabel('Sensitivity to Treatment {\it s}')
+     ylabel('Original Prop. of Pop.')
 
      figure
    stem(linspace(0,1,length(gls_optpar_one_100)),gls_optpar_one_100,'--d','MarkerSize',10,'LineWidth',2)
