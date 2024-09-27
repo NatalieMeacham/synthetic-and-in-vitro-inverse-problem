@@ -21,7 +21,7 @@ tspan=linspace(tinit,tfinal,(tfinal-tinit)/3 + 1);
 
 % concnum=length(concvec);
 
-chooseconc=11;
+chooseconc=10;
 
 % for i=tvec
 %     for j=concvec
@@ -113,6 +113,7 @@ while ii<maxits & parchange > partol & oldparchange > partol | ii< minits
 %[t, gencmatC,weightedsol] = ForwardFunctionN(rsgrid, ones(size(rsgrid)), rho, k, y0, tspan);
 %[t,c]=ForwardFnFindK(1,tspan,IC);
 %errtomin=@(par)PEerrorfn(par,gencmatC,data,weights);
+%errtomin=@(par)ErrFn2K(par, data,tspan,IC,weights);
 errtomin=@(par)ErrFn2K(par, data,tspan,IC,weights);
 options = optimoptions(@fmincon,'Display','iter','Algorithm','sqp','MaxIterations',550); 
 %gls_optpar=FMINCON (set up Aeq etc.) 

@@ -8,7 +8,7 @@ clear all
 
 format long
 
-choosedata=['S500']; %choose between R250, R500, S500, and S1000
+choosedata=['R500']; %choose between R250, R500, S500, and S1000
 %or BF11,BF12,BF21,BF41
 %rho=0.3; %originially chosen from phenopop to be 0.3
 %k=0.15; %originially chosen arbitrarily to be 0.15
@@ -167,7 +167,7 @@ tspan=linspace(tinit,tfinal,(tfinal-tinit)/3 + 1);
 %keyboard
 %[meanmatnorm,tspanvec]=DropNaNsFn(concvec,meanmatnorm,tspan);
 %[meanmatnorm,isnanmat, tspanvec, tspanmat]=DropNaNsFn(concvec,meanmatnorm,tspan)
-[meanmatnorm,isnanmat, tspanvec, tspanmat,concvecA]=DropNaNsFn(concvec,meanmatnorm,tspan)
+[meanmatnorm,isnanmat, tspanvec, tspanmat,concvecA]=DropNaNsFn(concvec,meanmatnorm,tspan);
 %keyboard
 %keyboard
 %keyboard 
@@ -200,7 +200,7 @@ tspan=linspace(tinit,tfinal,(tfinal-tinit)/3 + 1);
 rpointsvec=6:2:24;
 AICmat=zeros(length(concvecA),length(rpointsvec));
 for a=1:length(concvecA)
-    data=meanmatnorm(a,1:tspanvec(a))
+    data=meanmatnorm(a,1:tspanvec(a));
     %keyboard
     y0=data(1);
     rho=rhovec(concvecA(a));
@@ -224,7 +224,7 @@ AICminvec=zeros(concnum,1);
 AICcheck=zeros(concnum,1);
 optmat=zeros(concnum,length(rpointsvec));
 for a=1:length(concvecA)
-    data=meanmatnorm(a,1:tspanvec(a))
+    data=meanmatnorm(a,1:tspanvec(a));
     %keyboard
     tspanS=tspanmat(a,1:tspanvec(a));
     %keyboard
@@ -400,7 +400,7 @@ for a=1:length(concvecS)
     rho=rhovec(concvecA(a));
     k=kvec(concvecA(a));
     %data=meanmatnormS(a,:);
-    data=meanmatnorm(a,1:tspanvec(a))
+    data=meanmatnorm(a,1:tspanvec(a));
     %keyboard
     tspanS=tspanmat(a,1:tspanvec(a));
     %keyboard

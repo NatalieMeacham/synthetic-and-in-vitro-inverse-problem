@@ -1,4 +1,5 @@
 function [meanmatnorm]=ReplaceNaNsFn(concvec,meanmatnorm)
+%test comment 
 
 %replace any NaNs row value with 1s
 TFvec=zeros(length(concvec),1);

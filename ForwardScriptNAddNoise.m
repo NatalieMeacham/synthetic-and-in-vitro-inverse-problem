@@ -19,7 +19,7 @@ tpoints=25;
 tspan=linspace(0,tfinal,tpoints); %this is so we can initialize matrix with known number of rows 
 
 %[t, cmat] = ForwardFunction(sgrid, sprobs, rho, k, y0, tspan)
-[t, cmat,weightedsol] = ForwardFunctionN(sgrid, sprobs, rho, k, y0, tspan)
+[t, cmat,weightedsol] = ForwardFunctionN(sgrid, sprobs, rho, k, y0, tspan);
 
 %toc
 %DUMPED CODE
@@ -55,6 +55,18 @@ tspan=linspace(0,tfinal,tpoints); %this is so we can initialize matrix with know
     ylabel('Proportion of Population')
     ylim([0,1])
 
+    figure
+    for i=1:length(sgrid)
+        hold on
+        plot(tspan, cmat(:,i),'LineWidth',2)
+    end
+    set(gca,"FontSize",20)
+    %title('Proportions of Different s Values')
+    xlabel('Sensitivity to Treatment (s)')
+    ylabel('Proportion of Population')
+    ylim([0,1])
+
+    
     figure
     plot(tspan,weightedsol,'LineWidth',2)
     xlabel('Time')

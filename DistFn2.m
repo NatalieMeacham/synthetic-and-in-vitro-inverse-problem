@@ -1,16 +1,21 @@
-function [sprobs] = DistFn(disttype,sgrid,a,b)
+function [sprobs] = DistFn2(disttype,sgrid,a,b)
 
 %FUTURE UPDATE: do "BigaussianLow" and "BigaussianHigh" for two
 %different bigaussian dists
 
-%sample comment 
-sample = 2+2;
-
-if string(disttype) == 'Normal'
+if string(disttype) == 'Normal' %this should be cts
     mu = .5; 
     sigma = .09;
     sprobs = pdf('Normal',sgrid,mu,sigma); 
- elseif string(disttype) == 'Bigaussian'
+    %sprobs = sprobs/(sum(sprobs));
+% elseif string(disttype) == 'CtsNormal'
+%     mu = .5; 
+%     sigma = .09;
+%     %sprobs = pdf('Normal',sgrid,mu,sigma); 
+%     %normal = @(x) (1/(sigma*sqrt(2*pi)))*exp(-.5*((x - mu)/sigma).^2);
+%     %sprobs=normal(sgrid)
+%     sprobs = normpdf(sgrid,mu,sigma); 
+ elseif string(disttype) == 'Bigaussian' %this should be cts 
      mu1=.3;
      mu2=.7; 
      % sigma1=.05;
@@ -19,15 +24,19 @@ if string(disttype) == 'Normal'
      % weight2=.9;
      sigma1=.1;
      sigma2=.05;
-     weight1=.9;
-     weight2=.1;
+     % weight1=.9; %typically use this pair
+     % weight2=.1;
      % weight1=.1;
      % weight2=.9;
+     weight1 = 0.5;
+     weight2 = 0.5;
      %  %bigaussian = @(x) (1/(sigma1*sqrt(2*pi)))*exp(-.5*((x - mu1)/sigma1).^2) + (1/(sigma2*sqrt(2*pi)))*exp(-.5*((x - mu2)/sigma2).^2);
      bigaussian = @(x) weight1*(1/(sigma1*sqrt(2*pi)))*exp(-.5*((x - mu1)/sigma1).^2) + weight2*(1/(sigma2*sqrt(2*pi)))*exp(-.5*((x - mu2)/sigma2).^2);
      sprobs=bigaussian(sgrid);
+     %sprobs = sprobs/(sum(sprobs));
 elseif string(disttype) == 'Uniform'
      sprobs = pdf('Uniform',sgrid, a, b);
+     %sprobs = sprobs/(sum(sprobs));
 elseif string(disttype) == 'OnePoint'
     pointval=0.4;
     %point=pointval*(length(sgrid) - 1);
@@ -35,6 +44,7 @@ elseif string(disttype) == 'OnePoint'
     sprobs=zeros(length(sgrid),1);
     sprobs(pointval*100)=1;
     sprobs=sprobs';
+    sprobs = sprobs/(sum(sprobs));
 elseif string(disttype) == 'TwoPoints'
     pointval1=0.3;
     pointval2=0.8;
@@ -44,10 +54,11 @@ elseif string(disttype) == 'TwoPoints'
     sprobs(pointval1*100)=prop1;
     sprobs(pointval2*100)=prop2;
     sprobs=sprobs';
+    sprobs = sprobs/(sum(sprobs));
 else 
     disp('Choose a distribution that works.')
 end
 
 %Normalize sprobs to sum to 1 for whichever distribution:
-sprobs = sprobs/(sum(sprobs));
+
 end
