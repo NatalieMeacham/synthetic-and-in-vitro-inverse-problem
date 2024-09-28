@@ -2,13 +2,13 @@
 clc
 clear all
 points=101; %this used to be 50
-disttype = ['Uniform'];
+disttype = ['Normal'];
 % rho=1; %make these inputs 
 % k=1.5; %maximal death rate due to treatment %bigger than rho
 % y0=.2; %note c is normalized so needs to start between 0 and 1
 tfinal=10;
-tpoints=25; %typically 100 for paper
-noisesize=0.0; %keep it w 0 noise for now
+tpoints=100; %typically 100 for paper
+noisesize=0.02; %keep it w 0 noise for now
 tspan=linspace(0,tfinal,tpoints);
 rpoints = 12; 
 pointsstr=string(points);
@@ -43,15 +43,22 @@ sgrid=linspace(a,b,points);
 %propdata= weightedsol.*(1+noisesize*rand(size(weightedsol))); 
 %propdata=weightedsol.*(1 + noisesize*(-1 + (2).*rand(size(weightedsol))));
 propdata=weightedsol.*(1 + noisesize*randn(size(weightedsol)));
+
+figure
+plot(t,propdata)
+
 % figure
 % plot(tspan,weightedsol)
 % hold on
 % plot(tspan,propdata,'*')
 % keyboard
-
+%%
 %[gls_optpar,converge_flag,AIC_GLS,sgrid,sprobs,weightedsol,rsgrid]=GLSInverseFnN(points,disttype,rho,k,y0,tfinal,tpoints,noisesize,rpoints)
 [gls_optpar,converge_flag,AIC_GLS,sgrid,sprobs,weightedsol,rsgrid]=GLSInverseFnN(points,disttype,rho,k,y0,tfinal,tpoints,noisesize,rpoints,propdata)
 
+figure
+plot(t,weightedsol)
+%%
 
 %copied from OLSInverseScript
 rpointsvec=4:1:30;

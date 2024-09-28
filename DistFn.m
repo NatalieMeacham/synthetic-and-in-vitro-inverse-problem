@@ -3,9 +3,6 @@ function [sprobs] = DistFn(disttype,sgrid,a,b)
 %FUTURE UPDATE: do "BigaussianLow" and "BigaussianHigh" for two
 %different bigaussian dists
 
-%sample comment 
-sample = 2+2;
-
 if string(disttype) == 'Normal'
     mu = .5; 
     sigma = .09;
