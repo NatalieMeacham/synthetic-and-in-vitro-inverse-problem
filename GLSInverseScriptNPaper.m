@@ -105,7 +105,8 @@ figure
 yyaxis left
 %plot(rsgrid,optweightfromAIC,'-*','LineWidth',2)
 plot(rsgrid,optweightfromAIC,'--o','MarkerSize',8,'LineWidth',2,'Color','blue')
-ylabel('Recovered Prop. of Pop.')
+%ylabel('Recovered Prop. of Pop.') %original
+ylabel('Recovered Proportion of Population')
 ylimval=max(max(sprobs),max(optweightfromAIC));
 if strcmp(disttype,'OnePoint') == 1 || strcmp(disttype,'TwoPoints') ==1 
     ylim([0 ylimval])
@@ -118,7 +119,8 @@ yyaxis right
 plot(sgrid,sprobs,'--o','MarkerSize',8,'LineWidth',2,'Color','red')
 legend('Recovered','Original','Location','northeast')
 xlabel('Sensitivity to Treatment {\it s}')
-ylabel('Original Prop. of Pop.')
+%ylabel('Original Prop. of Pop.') %original version
+ylabel('Original Proportion of Population')
 if strcmp(disttype,'OnePoint') == 1 || strcmp(disttype,'TwoPoints') ==1
     ylim([0 ylimval])
 end
@@ -139,7 +141,8 @@ yyaxis left
 %plot(rsgrid,optweightfromAIC,'-*','LineWidth',2)
 %plot(rsgrid,optweightfromAIC,'o','MarkerSize',8,'LineWidth',2,'Color','blue')
 stem(rsgrid,optweightfromAIC,'--b','MarkerSize',8,'LineWidth',2) %,'MarkerSize,'8,'LineWidth',2,'Color,''blue')
-ylabel('Recovered Prop. of Pop.')
+%ylabel('Recovered Prop. of Pop.') %original
+ylabel('Recovered Proportion of Population')
 ylimval=max(max(sprobs),max(optweightfromAIC));
 if strcmp(disttype,'OnePoint') == 1 || strcmp(disttype,'TwoPoints') ==1 
     ylim([0 ylimval])
@@ -152,7 +155,8 @@ yyaxis right
 plot(sgrid,sprobs,'--o','MarkerSize',8,'LineWidth',2,'Color','red')
 legend('Recovered','Original','Location','northeast')
 xlabel('Sensitivity to Treatment {\it s}')
-ylabel('Original Prop. of Pop.')
+%ylabel('Original Prop. of Pop.') %original version
+ylabel('Original Proportion of Population')
 if strcmp(disttype,'OnePoint') == 1 || strcmp(disttype,'TwoPoints') ==1
     ylim([0 ylimval])
 end
@@ -227,7 +231,8 @@ figure
     hold on
     plot(sgrid, cdfS,'--o','MarkerSize',8,'LineWidth',2,'Color','red')
     xlabel('Sensitivity to Treatment {\it s}')
-ylabel('Cumulative Recovered Prop. of Pop.')
+%ylabel('Cumulative Recovered Prop. of Pop.') %original version
+ylabel('Cumulative Recovered Proportion')
 %legend(Legend, 'FontSize',12,'Location','northwest')
 legend('Recovered','Original','Location','Southeast')
 set(gca,"FontSize",20)

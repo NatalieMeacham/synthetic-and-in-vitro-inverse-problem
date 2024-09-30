@@ -2,7 +2,7 @@
 
 clc
 
-choosedata=['R500']; %choose between R250, R500, S500, and S1000
+choosedata=['S500']; %choose between R250, R500, S500, and S1000
 %or BF11,BF12,BF21,BF41
 kmax=0.0077;
 kmin=0;
@@ -128,7 +128,7 @@ clr = hsv(sz(1));
     %% 
 %for loop of each replicate
 figure
-for i=1:sz(1)
+for i=2:sz(1)
     datavec = squeeze(T(i,dosage,:));
     tspan=linspace(tinit,tfinal,(tfinal-tinit)/3 + 1);
     %get rid of nans

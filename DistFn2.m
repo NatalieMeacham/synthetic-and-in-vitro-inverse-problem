@@ -28,8 +28,8 @@ if string(disttype) == 'Normal' %this should be cts
      % weight2=.1;
      % weight1=.1;
      % weight2=.9;
-     weight1 = 0.5;
-     weight2 = 0.5;
+      weight1 = 0.5; %paper new version
+      weight2 = 0.5;
      %  %bigaussian = @(x) (1/(sigma1*sqrt(2*pi)))*exp(-.5*((x - mu1)/sigma1).^2) + (1/(sigma2*sqrt(2*pi)))*exp(-.5*((x - mu2)/sigma2).^2);
      bigaussian = @(x) weight1*(1/(sigma1*sqrt(2*pi)))*exp(-.5*((x - mu1)/sigma1).^2) + weight2*(1/(sigma2*sqrt(2*pi)))*exp(-.5*((x - mu2)/sigma2).^2);
      sprobs=bigaussian(sgrid);

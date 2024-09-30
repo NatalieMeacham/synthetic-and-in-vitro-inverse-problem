@@ -29,8 +29,9 @@ function [t, cmat,weightedsol] = ForwardFunctionN(sgrid, sprobs, rho, k, y0, tsp
     end
 
      %for some time t, dot product the sprobs with t's row in the cmat matrix
-     weightedsol=sprobs*cmat'; %this gives the total weighted c across time
-
+     weightedsol=sprobs*cmat'; %this gives the total weighted c across time %original
+     %weightedsol=((max(sprobs)-min(sprobs))/sum(sprobs))*sprobs; %trying to normalize 
+     %weightedsol=(sprobs/sum(sprobs))*cmat'; %another attempt to normalize 
    % N=length(sgrid);
    %  Legend=cell(N,1)
    %  %Legend=cell(N+1,1)

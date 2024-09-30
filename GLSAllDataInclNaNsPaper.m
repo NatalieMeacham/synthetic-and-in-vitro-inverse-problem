@@ -200,7 +200,8 @@ for a=1:length(concvecS)
     
 end
 xlabel('Sensitivity to Treatment {\it s}')
-ylabel('Recovered Prop. of Pop.')
+%ylabel('Recovered Prop. of Pop.') %original version 
+ylabel('Recovered Proportion of Population')
 legend(Legend, 'FontSize',12)
 legend(Legend2, 'FontSize',12)
 legend(Legend3, 'FontSize',12,'Location','northwest')
@@ -218,7 +219,8 @@ for a=1:length(concvecS)
     stairs(X,Y,'--o','Color',clr(a,:),'MarkerFaceColor',clr(a,:),'MarkerSize',8,'LineWidth',2)
     ylim([0 1])
     xlabel('Sensitivity to Treatment {\it s}')
-ylabel('Cumulative Recovered Prop. of Pop.')
+%ylabel('Cumulative Recovered Prop. of Pop.') %original version
+ylabel('Cumulative Recovered Proportion')
 legend(Legend3, 'FontSize',12,'Location','northwest')
 set(gca,"FontSize",20)
 end

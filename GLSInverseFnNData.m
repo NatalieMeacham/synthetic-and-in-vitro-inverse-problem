@@ -43,7 +43,7 @@ ub=zeros(rpoints,1);
 ub(1:rpoints)=1;
 
 %Define initial s
-%s0=rand(rpoints,1); %random s0
+%s0=rand(rpoints,1); %random s0 %THEN NORMALIZE 
 
 %uniform s0
 s0=ones(rpoints,1); %to get a uniform dist.
