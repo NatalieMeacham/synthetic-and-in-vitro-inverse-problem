@@ -2,13 +2,13 @@
 clc
 clear all
 points=101; %this used to be 50
-disttype = ['Normal'];
+disttype = ['Bigaussian'];
 % rho=1; %make these inputs 
 % k=1.5; %maximal death rate due to treatment %bigger than rho
 % y0=.2; %note c is normalized so needs to start between 0 and 1
 tfinal=10;
 tpoints=100; %typically 100 for paper
-noisesize=0.02; %keep it w 0 noise for now
+noisesize=0.0; %keep it w 0 noise for now
 tspan=linspace(0,tfinal,tpoints);
 rpoints = 12; 
 pointsstr=string(points);
@@ -100,36 +100,36 @@ saveas(gcf,AICfiglabel);
 
 %comparison of the og and recovered dists 
 
-%compare output of fmincon with original dist
-figure
-yyaxis left
-%plot(rsgrid,optweightfromAIC,'-*','LineWidth',2)
-plot(rsgrid,optweightfromAIC,'--o','MarkerSize',8,'LineWidth',2,'Color','blue')
-%ylabel('Recovered Prop. of Pop.') %original
-ylabel('Recovered Proportion of Population')
-ylimval=max(max(sprobs),max(optweightfromAIC));
-if strcmp(disttype,'OnePoint') == 1 || strcmp(disttype,'TwoPoints') ==1 
-    ylim([0 ylimval])
-end
-if strcmp(disttype,'Uniform') == 1
-    ylim([0 4*median(optweightfromAIC)])
-end
-hold on
-yyaxis right
-plot(sgrid,sprobs,'--o','MarkerSize',8,'LineWidth',2,'Color','red')
-legend('Recovered','Original','Location','northeast')
-xlabel('Sensitivity to Treatment {\it s}')
-%ylabel('Original Prop. of Pop.') %original version
-ylabel('Original Proportion of Population')
-if strcmp(disttype,'OnePoint') == 1 || strcmp(disttype,'TwoPoints') ==1
-    ylim([0 ylimval])
-end
-if strcmp(disttype,'Uniform') == 1
-    ylim([0 4*median(sprobs)])
-end
-set(gca,"FontSize",20)
-PMFfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'Dists','.jpg');
-saveas(gcf,PMFfiglabel);
+% %compare output of fmincon with original dist
+% figure
+% yyaxis left
+% %plot(rsgrid,optweightfromAIC,'-*','LineWidth',2)
+% plot(rsgrid,optweightfromAIC,'--o','MarkerSize',8,'LineWidth',2,'Color','blue')
+% %ylabel('Recovered Prop. of Pop.') %original
+% ylabel('Recovered Proportion of Population')
+% ylimval=max(max(sprobs),max(optweightfromAIC));
+% if strcmp(disttype,'OnePoint') == 1 || strcmp(disttype,'TwoPoints') ==1 
+%     ylim([0 ylimval])
+% end
+% if strcmp(disttype,'Uniform') == 1
+%     ylim([0 4*median(optweightfromAIC)])
+% end
+% hold on
+% yyaxis right
+% plot(sgrid,sprobs,'--o','MarkerSize',8,'LineWidth',2,'Color','red')
+% legend('Recovered','Original','Location','northeast')
+% xlabel('Sensitivity to Treatment {\it s}')
+% %ylabel('Original Prop. of Pop.') %original version
+% ylabel('Original Proportion of Population')
+% if strcmp(disttype,'OnePoint') == 1 || strcmp(disttype,'TwoPoints') ==1
+%     ylim([0 ylimval])
+% end
+% if strcmp(disttype,'Uniform') == 1
+%     ylim([0 4*median(sprobs)])
+% end
+% set(gca,"FontSize",20)
+% PMFfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'Dists','.jpg');
+% saveas(gcf,PMFfiglabel);
 %title('Recovered vs. Original Distributions')
 %figurename = strcat('F','rp',num2str(rpoints),'sp',num2str(points));
 %saveas(gcf,figurename)
@@ -304,7 +304,7 @@ hold on
 %plot(t,weightedsol','rd','LineWidth', 2,'MarkerSize',8)
 plot(t,propdata','rd','LineWidth', 2,'MarkerSize',8)
 hold off
-legend('Est. Tumor Volume','Noisy Data','Location','southeast')
+legend('Est. Tumor Volume','Simulated Data','Location','southeast')
 xlabel('Time')
 ylabel('Aggregated Tumor Volume')
 %title('Weighted Sols for Original vs. Recovered Dists.')
