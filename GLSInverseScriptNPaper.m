@@ -8,7 +8,7 @@ disttype = ['Bigaussian'];
 % y0=.2; %note c is normalized so needs to start between 0 and 1
 tfinal=10;
 tpoints=100; %typically 100 for paper
-noisesize=0.0; %keep it w 0 noise for now
+noisesize=0.02; %keep it w 0 noise for now
 tspan=linspace(0,tfinal,tpoints);
 rpoints = 12; 
 pointsstr=string(points);
@@ -148,7 +148,7 @@ if strcmp(disttype,'OnePoint') == 1 || strcmp(disttype,'TwoPoints') ==1
     ylim([0 ylimval])
 end
 if strcmp(disttype,'Uniform') == 1
-    ylim([0 4*median(optweightfromAIC)])
+    ylim([0 2.5*median(optweightfromAIC)])
 end
 hold on
 yyaxis right
@@ -161,7 +161,7 @@ if strcmp(disttype,'OnePoint') == 1 || strcmp(disttype,'TwoPoints') ==1
     ylim([0 ylimval])
 end
 if strcmp(disttype,'Uniform') == 1
-    ylim([0 4*median(sprobs)])
+    ylim([0 2.5*median(sprobs)])
 end
 set(gca,"FontSize",20)
 PMFfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'Dists','.jpg');

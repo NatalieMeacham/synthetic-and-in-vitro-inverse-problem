@@ -85,6 +85,7 @@ weights=full(weights);
 parchange =1/(2)*sum((abs(gls_optpar(inds)-old_gls_optpar(inds))./old_gls_optpar(inds))); 
 ii = ii+1; 
 old_gls_optpar=gls_optpar; 
+oldparchange = parchange;
 end 
 disp('GLS Estimation') 
 gls_optpar; 

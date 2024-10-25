@@ -18,14 +18,14 @@ if string(disttype) == 'Normal' %this should be cts
  elseif string(disttype) == 'Bigaussian' %this should be cts 
      mu1=.3;
      mu2=.7; 
-     % sigma1=.05;
-     % sigma2=.1;
+     sigma1=.05;
+     sigma2=.1;
      % weight1=.1;
      % weight2=.9;
      %sigma1=.1; %original 
      %sigma2=.05; %original
-     sigma1 = 0.05
-        sigma2 = 0.05 %evening version
+        %sigma1 = 0.05
+        %sigma2 = 0.05 %evening version
      % weight1=.9; %typically use this pair
      % weight2=.1;
      % weight1=.1;

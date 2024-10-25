@@ -8,7 +8,7 @@ clear all
 
 format long
 
-choosedata=['R500']; %choose between R250, R500, S500, and S1000
+choosedata=['S100']; %choose between R250, R500, S500, and S1000
 %or BF11,BF12,BF21,BF41
 %rho=0.3; %originially chosen from phenopop to be 0.3
 %k=0.15; %originially chosen arbitrarily to be 0.15
