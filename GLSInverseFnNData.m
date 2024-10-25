@@ -65,9 +65,9 @@ oldparchange=100; %initialize old parameter change
 ii=1; %initialize number of iterations  
 
 %while ii<maxits && parchange > partol && oldparchange > partol || ii< minits 
-while ii<maxits & parchange > partol & oldparchange > partol | ii< minits 
+while ii<maxits & parchange > partol & oldparchange > partol | ii< minits %WHERE IS OLDPARCHANGE
 %gls_error_estimate = @(par)gls_formulation(par,prop_data,ts,y0,weights); 
-[t, gencmatC,weightedsol] = ForwardFunctionN(rsgrid, ones(size(rsgrid)), rho, k, y0, tspan);
+[t, gencmatC,weightedsol] = ForwardFunctionN(rsgrid, ones(size(rsgrid)), rho, k, y0, tspan); %WHY ONES? because we're only using the genmatC and don't care about the the weights? 
 errtomin=@(par)PEerrorfn(par,gencmatC,data,weights);
 options = optimoptions(@fmincon,'Display','iter','Algorithm','sqp','MaxIterations',550); 
 %gls_optpar=FMINCON (set up Aeq etc.) 

@@ -4,8 +4,9 @@ function [t, cmat,weightedsol] = ForwardFunctionN(sgrid, sprobs, rho, k, y0, tsp
     cmat=zeros(length(tspan),length(sgrid));
     %figure
     for i=1:length(sgrid)
-        %[t,csol] = ode45(@(t,csol) rho*csol*(1 - csol)*(1 - sgrid(i)) - k*sgrid(i)*csol, tspan, y0); 
-        [t,csol] = ode45(@(t,csol) - k*sgrid(i)*csol, tspan, y0);  %make "all sensitive" model for reviewer 1
+        [t,csol] = ode45(@(t,csol) rho*csol*(1 - csol)*(1 - sgrid(i)) -k*sgrid(i)*csol, tspan, y0); %regular
+       % [t,csol] = ode45(@(t,csol) - k*sgrid(i)*csol, tspan, y0);  %make "all sensitive" model for reviewer 1
+        %[t,csol] = ode45(@(t,csol) rho*csol*(1 - csol)*(1 - sgrid(i))- k*rho*sgrid(i)*csol, tspan, y0); %death term has rho
         %fill in matrix for csol values over time and different s values
             cmat(:,i)=csol;
         %disp(sgrid(i));

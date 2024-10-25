@@ -8,7 +8,7 @@ clear all
 
 format long
 
-choosedata=['R500']; %choose between R250, R500, S500, and S1000
+choosedata=['BF12']; %choose between R250, R500, S500, and S1000
 %or BF11,BF12,BF21,BF41
 %rho=0.3; %originially chosen from phenopop to be 0.3
 %k=0.15; %originially chosen arbitrarily to be 0.15
@@ -16,7 +16,8 @@ choosedata=['R500']; %choose between R250, R500, S500, and S1000
 %rho=0.0634
 %k=0.047;
 %kmax=0.0047;
-kmax=0.0077;
+kmax=0.0077; %regular
+ %kmax = 0.0019; %when we have death term incl rho?
 kmin=0;
 %k=0;
 %rho=0.0653;
@@ -50,6 +51,7 @@ elseif choosedata=='S100'
     rhomax=0.0692; %just chose higher option 
     kmin=0;
     kmax=0.0077; %from 9th row
+    %kmax=0.0047 %if we have rho in death term
 else
     disp('??')
 end
