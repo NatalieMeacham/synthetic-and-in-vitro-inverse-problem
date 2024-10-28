@@ -6,7 +6,7 @@ disttype = ['TwoPoints'];
 % rho=1; %make these inputs 
 % k=1.5; %maximal death rate due to treatment %bigger than rho
 % y0=.2; %note c is normalized so needs to start between 0 and 1
-tfinal=10;
+tfinal=50;
 tpoints=100; %typically 100 for paper
 noisesize=0.02; %keep it w 0 noise for now
 tspan=linspace(0,tfinal,tpoints);
@@ -15,7 +15,7 @@ pointsstr=string(points);
 noisestr=string(noisesize);
 
 rho=0.3;
-k=0.15;
+k=0.45;
 y0=.2; 
 % a=0;
 % b=1;
