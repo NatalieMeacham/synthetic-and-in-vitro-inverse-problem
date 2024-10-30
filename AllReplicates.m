@@ -1,6 +1,7 @@
 %Run inverse problem individually on all replicates from a given dataset 
 
 clc
+clear all
 
 choosedata=['S500']; %choose between R250, R500, S500, and S1000
 %choose dosage:
