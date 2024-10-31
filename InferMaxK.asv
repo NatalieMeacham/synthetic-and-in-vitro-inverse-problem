@@ -1,10 +1,6 @@
 clc
 clear all
 
-%0.004705245484133 for regular death term for s100
-%0.068991914276888 for death term with rho for s100
-%0.004740638815982 for logistic death term for s100
-
 load('MONOCLONAL_DATA.mat');
 %T=RESISTANT_250_BF; %first row has NaNs, use concvec=linspace(2,concsize,concsize-1);
 %T=RESISTANT_500_BF; %last row has NaN, use concvec=linspace(1,concsize-1,concsize-1);
@@ -82,8 +78,8 @@ meanmatnorm;
 % keyboard
 data=meanmatnorm(chooseconc,1:tspanvec(chooseconc));
 tspan=tspanmat(chooseconc,1:tspanvec(chooseconc));
-data;
-tspan;
+data
+tspan
 %keyboard
 %keyboard
 
