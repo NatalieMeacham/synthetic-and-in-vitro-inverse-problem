@@ -44,8 +44,8 @@ sgrid=linspace(a,b,points);
 %propdata=weightedsol.*(1 + noisesize*(-1 + (2).*rand(size(weightedsol))));
 propdata=weightedsol.*(1 + noisesize*randn(size(weightedsol)));
 
-figure
-plot(t,propdata)
+% figure
+% plot(t,propdata)
 
 % figure
 % plot(tspan,weightedsol)
@@ -56,8 +56,8 @@ plot(t,propdata)
 %[gls_optpar,converge_flag,AIC_GLS,sgrid,sprobs,weightedsol,rsgrid]=GLSInverseFnN(points,disttype,rho,k,y0,tfinal,tpoints,noisesize,rpoints)
 [gls_optpar,converge_flag,AIC_GLS,sgrid,sprobs,weightedsol,rsgrid]=GLSInverseFnN(points,disttype,rho,k,y0,tfinal,tpoints,noisesize,rpoints,propdata)
 
-figure
-plot(t,weightedsol)
+% figure
+% plot(t,weightedsol)
 %%
 
 %copied from OLSInverseScript
@@ -95,8 +95,6 @@ legend('AIC','Min. AIC','Location','northeast')
 AICfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'AIC','.jpg');
 saveas(gcf,AICfiglabel);
 
-%add to this script:
-%weighted sol w original dist. plotted with weighted sol w recovered dist. 
 
 %comparison of the og and recovered dists 
 

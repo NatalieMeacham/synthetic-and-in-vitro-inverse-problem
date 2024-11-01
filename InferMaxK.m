@@ -96,7 +96,7 @@ lb=0;
 ub=1;
 %ub(1:rpoints)=1;
 
-k0=0.0005;
+k0=0.1;
 
 gammas=1;
 weights=ones(size(tspan));

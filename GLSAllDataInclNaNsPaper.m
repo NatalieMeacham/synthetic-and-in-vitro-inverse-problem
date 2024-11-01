@@ -51,8 +51,8 @@ elseif choosedata=='S100'
     rhomax=0.0692; %just chose higher option 
     kmin=0;
     %kmax=0.0077; %from 9th row
-    %kmax=0.004705245484133 %for regular death term for s100
-    kmax=0.068991914276888 %for death term with rho for s100
+    kmax=0.004705245484133 %for regular death term for s100
+    %kmax=0.068991914276888 %for death term with rho for s100
     %kmax=0.004740638815982 %for logistic death term for s100
 else
     disp('??')
@@ -67,12 +67,12 @@ dosevecstring= ["0.00", "0.03","0.05", "0.12", "0.22", "0.34","0.46","1.19","2.4
 %rhovec=zeros(length(dosevec),1);
 %rhovec=rho.*(dosevec./dosevec(11));
 %rhovec=rho*ones(length(dosevec),1) - rho.*(dosevec./dosevec(11))';
-%kvec=k.*0.5*dosevec; %now apply these values by concentration in each for loop
-%kvec=k.*dosevec;
-kvec=kmax.*(dosevec./dosevec(11));
-kvec=kmax*ones(size(dosevec)); %experimenting 
+kvec=kmax.*(dosevec./dosevec(11)); %original 
+%kvec=kmax*ones(size(dosevec)); %experimenting 
 %kvec=kmax.*(dosevec.^2./dosevec(11)^2); %experimenting 
-%kvec=linspace(0,k,11);
+%kvec=0.5*kmax*linspace(0,1,11);
+%kvec=zeros(size(dosevec))
+%kvec=linspace(0,kmax,11);
 %kvec=k.*(ones(length(dosevec)) + dosevec);
 %kvec=k.*(1 + (dosevec./dosevec(11)));
 %kvec=k.*ones(length(dosevec),1) + (dosevec./dosevec(11));
