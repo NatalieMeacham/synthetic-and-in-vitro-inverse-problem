@@ -2,12 +2,12 @@
 clc
 clear all
 points=101; %this used to be 50
-disttype = ['Bigaussian'];
+disttype = ['TwoPoints'];
 % rho=1; %make these inputs 
 % k=1.5; %maximal death rate due to treatment %bigger than rho
 % y0=.2; %note c is normalized so needs to start between 0 and 1
 tfinal=50;
-tpoints=100; %typically 100 for paper
+tpoints=10; %typically 100 for paper
 noisesize=0.0; %keep it w 0 noise for now
 tspan=linspace(0,tfinal,tpoints);
 rpoints = 12; 
