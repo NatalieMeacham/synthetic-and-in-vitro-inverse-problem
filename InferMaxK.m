@@ -10,7 +10,7 @@ load('MONOCLONAL_DATA.mat');
 %T=RESISTANT_500_BF; %last row has NaN, use concvec=linspace(1,concsize-1,concsize-1);
 %T=SENSITIVE_500_BF; %no NaN
 %T=SENSITIVE_1000_BF; %last row has NaN, use concvec=linspace(1,concsize-1,concsize-1);
-choosedata='S100';
+choosedata='S500';
 % constdata=T;
 % sz = size(T);
 % tsize=sz(3);
@@ -25,7 +25,7 @@ tspan=linspace(tinit,tfinal,(tfinal-tinit)/3 + 1);
 
 % concnum=length(concvec);
 
-chooseconc=10;
+chooseconc=1;
 
 % for i=tvec
 %     for j=concvec
@@ -131,7 +131,7 @@ gls_optpar
 converge_flag=1;
 %pause
 %[~, ~,weights] = ForwardFunctionN(rsgrid, gls_optpar', rho, k, y0, tspan);
-[~,weights]=ForwardFnFindK(gls_optpar,tspan,IC)
+[~,weights]=ForwardFnFindK(gls_optpar,tspan,IC);
 weights=weights';
 %keyboard
 %weights is from the weightedsol so here would be c

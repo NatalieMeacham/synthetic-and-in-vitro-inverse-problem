@@ -164,19 +164,54 @@ xlabel('Time')
 r100to25=length(optweightfromAIC25)/length(optweightfromAIC100);
 r100to10=length(optweightfromAIC10)/length(optweightfromAIC100);
 
-figure
-yyaxis left
-plot(linspace(0,1,length(optweightfromAIC100)),optweightfromAIC100,'-','LineWidth',2,'Color','blue')
-hold on
-plot(linspace(0,1,length(optweightfromAIC25)),optweightfromAIC25*(r100to25),'-','LineWidth',2,'Color','cyan')
-hold on
-plot(linspace(0,1,length(optweightfromAIC10)),optweightfromAIC10*(r100to10),'-','LineWidth',2,'Color','m')
-hold on
-ylabel('Recovered Proportion of Population')
-yyaxis right
-plot(linspace(0,1,101),sprobs100,'LineWidth',2,'Color','r')
-ylabel('Original Proportion of Population')
-legend('Recovered, 100 Time Steps','Recovered, 25 Time Steps','Recovered, 10 Time Steps','Original','FontSize',14)
-set(gca,"FontSize",20)
-xlabel('Sensitivity to Treatment {\it s}')
+
+if strcmp(disttype,'OnePoint') == 1 || strcmp(disttype,'TwoPoints') ==1 
+    figure
+    yyaxis left
+    stem(linspace(0,1,length(optweightfromAIC100)),optweightfromAIC100,'--o','LineWidth',2,'MarkerSize',8,'Color','#0072BD')
+    hold on
+    stem(linspace(0,1,length(optweightfromAIC25)),optweightfromAIC25*(r100to25),'--o','LineWidth',2,'MarkerSize',8,'Color','#6B9C28')
+    hold on
+    stem(linspace(0,1,length(optweightfromAIC10)),optweightfromAIC10*(r100to10),'--o','LineWidth',2,'MarkerSize',8,'Color','#E6AB1A')
+    hold on
+    ylabel('Recovered Proportion of Population')
+    yyaxis right
+    stem(linspace(0,1,101),sprobs100,'--o','LineWidth',2,'MarkerSize',8,'Color','#A2142F')
+    ylabel('Original Proportion of Population')
+    legend('Recovered, 100 Time Steps','Recovered, 25 Time Steps','Recovered, 10 Time Steps','Original','FontSize',14)
+    set(gca,"FontSize",20)
+    xlabel('Sensitivity to Treatment {\it s}')
+elseif strcmp(disttype,'Normal') == 1 || strcmp(disttype,'Uniform') ==1 || strcmp(disttype,'Bigaussian') ==1 
+    figure
+    yyaxis left
+    stem(linspace(0,1,length(optweightfromAIC100)),optweightfromAIC100,'--o','LineWidth',2,'MarkerSize',8,'Color','#0072BD')
+    hold on
+    stem(linspace(0,1,length(optweightfromAIC25)),optweightfromAIC25*(r100to25),'--o','LineWidth',2,'MarkerSize',8,'Color','#6B9C28')
+    hold on
+    stem(linspace(0,1,length(optweightfromAIC10)),optweightfromAIC10*(r100to10),'--o','LineWidth',2,'MarkerSize',8,'Color','#E6AB1A')
+    hold on
+    ylabel('Recovered Proportion of Population')
+    yyaxis right
+    plot(linspace(0,1,101),sprobs100,'o','LineWidth',2,'MarkerSize',8,'Color','#A2142F')
+    ylabel('Original Proportion of Population')
+    legend('Recovered, 100 Time Steps','Recovered, 25 Time Steps','Recovered, 10 Time Steps','Original','FontSize',14)
+    set(gca,"FontSize",20)
+    xlabel('Sensitivity to Treatment {\it s}')
+end
+
+% figure
+% yyaxis left
+% plot(linspace(0,1,length(optweightfromAIC100)),optweightfromAIC100,'-','LineWidth',2,'Color','blue')
+% hold on
+% plot(linspace(0,1,length(optweightfromAIC25)),optweightfromAIC25*(r100to25),'-','LineWidth',2,'Color','cyan')
+% hold on
+% plot(linspace(0,1,length(optweightfromAIC10)),optweightfromAIC10*(r100to10),'-','LineWidth',2,'Color','m')
+% hold on
+% ylabel('Recovered Proportion of Population')
+% yyaxis right
+% plot(linspace(0,1,101),sprobs100,'LineWidth',2,'Color','r')
+% ylabel('Original Proportion of Population')
+% legend('Recovered, 100 Time Steps','Recovered, 25 Time Steps','Recovered, 10 Time Steps','Original','FontSize',14)
+% set(gca,"FontSize",20)
+% xlabel('Sensitivity to Treatment {\it s}')
 end
