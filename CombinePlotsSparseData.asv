@@ -89,8 +89,8 @@ TSweightedsol25 = [0.2     0.15047     0.12754     0.11804     0.11546     0.116
 TSweightedsol10 = [0.2     0.12015      0.1172      0.1261     0.13494     0.14163     0.14625      0.1493     0.15127     0.15252];
 
 sgrid=linspace(0,1,101);
-[Bt, ~,Bweightedsol]=ForwardFunctionN(sgrid, Bsprobs100', 0.3, 0.45, 0.2, linspace(0,50,100));
-[Nt, ~,Nweightedsol]=ForwardFunctionN(sgrid, Nsprobs100, 0.3, 0.45, 0.2, linspace(0,50,100));
+[Bt, ~,Bweightedsol]=ForwardFunctionN(sgrid, Bsprobs100, 0.3, 0.45, 0.2, linspace(0,50,100));
+[Nt, ~,Nweightedsol]=ForwardFunctionN(sgrid, Nsprobs100', 0.3, 0.45, 0.2, linspace(0,50,100));
 [Ut, ~,Uweightedsol]=ForwardFunctionN(sgrid, Usprobs100, 0.3, 0.45, 0.2, linspace(0,50,100));
 [Ot, ~,Oweightedsol]=ForwardFunctionN(sgrid, Osprobs100, 0.3, 0.45, 0.2, linspace(0,50,100));
 [Tt, ~,Tweightedsol]=ForwardFunctionN(sgrid, Tsprobs100, 0.3, 0.45, 0.2, linspace(0,50,100));
@@ -168,7 +168,7 @@ hold on
 plot(linspace(0,50,10),Sweightedsol10,'LineWidth',2,'Color','#E6AB1A')
 hold on
 plot(t',weightedsol,'-','LineWidth',2,'Color','#A2142F')
-legend('Synthetic Data, N_t=100','Recovered Curve, N_t=100','Synthetic Data, N_t=25','Recovered Curve, N_t=25','Synthetic Data, N_t=10','Recovered Curve, N_t=10','Original Curve','Location','best','FontSize',12)
+legend('Synthetic Data, N_t=100','Recovered Curve, N_t=100','Synthetic Data, N_t=25','Recovered Curve, N_t=25','Synthetic Data, N_t=10','Recovered Curve, N_t=10','Original','Location','best','FontSize',12)
 set(gca,"FontSize",20)
 ylabel('Aggregated Tumor Volume')
 xlabel('Time')

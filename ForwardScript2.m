@@ -8,7 +8,7 @@ points=11;
 sgrid=linspace(a,b,points);
 
 %[sprobs] = DistFn(['OnePoint'],sgrid,a,b);
-[sprobs] = DistFn2('Uniform',sgrid,a,b);
+[sprobs] = DistFn2('Bigaussian',sgrid,a,b);
 
 %Other parameters for forward solution 
 rho=1;
@@ -47,7 +47,7 @@ tspan=linspace(0,tfinal,tpoints); %this is so we can initialize matrix with know
     figure
     for i=1:length(sgrid)
         hold on
-        plot(sgrid(i), sprobs(i),'o','LineWidth',3,'MarkerSize',12)
+        stem(sgrid(i), sprobs(i),'--o','LineWidth',3,'MarkerSize',12)
     end
     set(gca,"FontSize",20)
     %title('Proportions of Different s Values')

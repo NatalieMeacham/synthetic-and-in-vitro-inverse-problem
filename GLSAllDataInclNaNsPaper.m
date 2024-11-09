@@ -8,7 +8,7 @@ clear all
 
 format long
 
-choosedata=['S500']; %choose between R250, R500, S500, and S1000
+choosedata=['BF41']; %choose between R250, R500, S500, and S1000
 %or BF11,BF12,BF21,BF41
 %rho=0.3; %originially chosen from phenopop to be 0.3
 %k=0.15; %originially chosen arbitrarily to be 0.15
@@ -34,24 +34,26 @@ if choosedata=='R250'
     rhomin=0.0241;
     rhomax=0.0692; %from first row
     kmin=0;
+    %kmin=-0.062361366641783; %when neg k is allowed
     kmax=0.0019; %just chose lower option
 elseif choosedata=='R500'
     rhomin=0.0375;
     rhomax=0.0682; 
     kmin=0;
+    %kmin=-0.061447543419865; %when neg k is allowed 
     kmax=0.0019; %just chose lower option
     %kmax = 0.004; %experimenting 
 elseif choosedata=='S500'
     rhomin=0.0241; %just chose lower option
     rhomax=0.0692; %just chose higher option 
-    %kmin=0;
-    kmin=-0.043428075769482; %if we allow neg death term
+    kmin=0;
+    %kmin=-0.043428075769482; %if we allow neg death term
     kmax=0.0019; %from 10th row
 elseif choosedata=='S100'
     rhomin=0.0241; %just chose lower option
     rhomax=0.0692; %just chose higher option 
     kmin=0;
-    kmin= -0.046240802804395; %if we allow neg death term
+    %kmin= -0.046240802804395; %if we allow neg death term
     %kmax=0.0077; %from 9th row
     kmax=0.004705245484133; %for regular death term for s100
     %kmax=0.068991914276888 %for death term with rho for s100
@@ -69,12 +71,13 @@ dosevecstring= ["0.00", "0.03","0.05", "0.12", "0.22", "0.34","0.46","1.19","2.4
 %rhovec=zeros(length(dosevec),1);
 %rhovec=rho.*(dosevec./dosevec(11));
 %rhovec=rho*ones(length(dosevec),1) - rho.*(dosevec./dosevec(11))';
-%kvec=kmax.*(dosevec./dosevec(11)); %original 
+kvec=kmax.*(dosevec./dosevec(11)); %original 
 %kvec=kmax*ones(size(dosevec)); %experimenting 
 %kvec=kmax.*(dosevec.^2./dosevec(11)^2); %experimenting 
 %kvec=0.5*kmax*linspace(0,1,11);
 %kvec=zeros(size(dosevec))
-kvec=linspace(kmin,kmax,11);
+%kvec=linspace(kmin,kmax,11);
+%kvec=linspace(kmin,kmax,11).*(dosevec./dosevec(11));
 %kvec=k.*(ones(length(dosevec)) + dosevec);
 %kvec=k.*(1 + (dosevec./dosevec(11)));
 %kvec=k.*ones(length(dosevec),1) + (dosevec./dosevec(11));
@@ -140,7 +143,7 @@ AICminvec=zeros(concnum,1);
 AICcheck=zeros(concnum,1);
 optmat=zeros(concnum,length(rpointsvec));
 for a=1:length(concvecA)
-    data=meanmatnorm(a,1:tspanvec(a))
+    data=meanmatnorm(a,1:tspanvec(a));
     %keyboard
     tspanS=tspanmat(a,1:tspanvec(a));
     %keyboard
@@ -204,7 +207,9 @@ for a=1:length(concvecS)
     %plot(trymatoptrsgridS(a,1:AICminvecS(a)),optmatS(a,1:AICminvecS(a)),'LineWidth',2,'Color',clr(a,:))
     %plot(trymatoptrsgridS(a,1:AICminvecS(a)),optmatS(a,1:AICminvecS(a)),'--o','MarkerSize',8,'LineWidth',2,'Color',clr(a,:))
     %plot(trymatoptrsgridS(a,1:AICminvecS(a)),optmatS(a,1:AICminvecS(a)),'--o','MarkerSize',8,'LineWidth',2,'MarkerEdgeColor',clr(a,:),'MarkerFaceColor',clr(a,:))
-    plot(trymatoptrsgridS(a,1:AICminvecS(a)),optmatS(a,1:AICminvecS(a)),'--o','Color',clr(a,:),'MarkerFaceColor',clr(a,:),'MarkerSize',8,'LineWidth',2)
+    % plot(trymatoptrsgridS(a,1:AICminvecS(a)),optmatS(a,1:AICminvecS(a)),'--o','Color',clr(a,:),'MarkerFaceColor',clr(a,:),'MarkerSize',8,'LineWidth',2)
+    % %real one ^
+    stem(trymatoptrsgridS(a,1:AICminvecS(a)),optmatS(a,1:AICminvecS(a)),'--o','Color',clr(a,:),'MarkerFaceColor',clr(a,:),'MarkerSize',8,'LineWidth',2)
     
 end
 xlabel('Sensitivity to Treatment {\it s}')

@@ -10,7 +10,7 @@ load('MONOCLONAL_DATA.mat');
 %T=RESISTANT_500_BF; %last row has NaN, use concvec=linspace(1,concsize-1,concsize-1);
 %T=SENSITIVE_500_BF; %no NaN
 %T=SENSITIVE_1000_BF; %last row has NaN, use concvec=linspace(1,concsize-1,concsize-1);
-choosedata='S500';
+choosedata='R500';
 % constdata=T;
 % sz = size(T);
 % tsize=sz(3);
