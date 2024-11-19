@@ -7,7 +7,7 @@ if string(disttype) == 'Normal' %this should be cts
     mu = .5; 
     sigma = .09;
     sprobs = pdf('Normal',sgrid,mu,sigma); 
-    %sprobs = sprobs/(sum(sprobs));
+    sprobs = sprobs/(trapz(sgrid,sprobs));
 % elseif string(disttype) == 'CtsNormal'
 %     mu = .5; 
 %     sigma = .09;
@@ -38,10 +38,10 @@ if string(disttype) == 'Normal' %this should be cts
      %  %bigaussian = @(x) (1/(sigma1*sqrt(2*pi)))*exp(-.5*((x - mu1)/sigma1).^2) + (1/(sigma2*sqrt(2*pi)))*exp(-.5*((x - mu2)/sigma2).^2);
      bigaussian = @(x) weight1*(1/(sigma1*sqrt(2*pi)))*exp(-.5*((x - mu1)/sigma1).^2) + weight2*(1/(sigma2*sqrt(2*pi)))*exp(-.5*((x - mu2)/sigma2).^2);
      sprobs=bigaussian(sgrid);
-     %sprobs = sprobs/(sum(sprobs));
+     sprobs = sprobs/(trapz(sgrid,sprobs));        % Truncated to ensure it is a odf
 elseif string(disttype) == 'Uniform'
      sprobs = pdf('Uniform',sgrid, a, b);
-     %sprobs = sprobs/(sum(sprobs));
+     sprobs = sprobs/(trapz(sgrid,sprobs));
 elseif string(disttype) == 'OnePoint'
     pointval=0.4;
     %point=pointval*(length(sgrid) - 1);
