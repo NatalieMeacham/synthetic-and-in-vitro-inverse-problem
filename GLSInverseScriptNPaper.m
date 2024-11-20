@@ -324,6 +324,7 @@ if strcmp(disttype,'Uniform') == 1 or strcmp(disttype,'Normal') == 1 or strcmp(d
     set(gca,"FontSize",20)
     PMFfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'Dists_samescale','.jpg');
     saveas(gcf,PMFfiglabel);
+end
 
 % figure
 % %yyaxis left
