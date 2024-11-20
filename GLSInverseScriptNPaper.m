@@ -313,12 +313,12 @@ saveas(gcf,Fitfiglabel);
 
 
 %compare output of fmincon with original dist on same scaled axes (no lines between recovered pts)
-if strcmp(disttype,'Uniform') == 1 or strcmp(disttype,'Normal') == 1 or strcmp(disttype,'Biguassian') == 1
+if strcmp(disttype,'Uniform') == 1 || strcmp(disttype,'Normal') == 1 || strcmp(disttype,'Bigaussian') == 1
     figure
     stem(rsgrid,optweightfromAIC,'--b','MarkerSize',8,'LineWidth',2) %,'MarkerSize,'8,'LineWidth',2,'Color,''blue')
     ylabel('Proportion of Population')
     hold on
-    plot(sgrid,sprobs*len(sprobs)/(trapz(sgrid,sprobs)*len(optweight)),'--o','MarkerSize',8,'LineWidth',2,'Color','red')
+    plot(sgrid,sprobs*length(sprobs)/(sum(sprobs)*length(optweightfromAIC)),'--o','MarkerSize',8,'LineWidth',2,'Color','red')
     legend('Recovered','Original','Location','northeast')
     xlabel('Sensitivity to Treatment {\it s}')
     set(gca,"FontSize",20)
