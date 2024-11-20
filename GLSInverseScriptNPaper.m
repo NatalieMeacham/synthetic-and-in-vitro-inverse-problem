@@ -164,6 +164,8 @@ end
 set(gca,"FontSize",20)
 PMFfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'Dists','.jpg');
 saveas(gcf,PMFfiglabel);
+PMFfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'Dists','.fig');
+saveas(gcf,PMFfiglabel);
 
 %make and plot cdfs to accommodate cts dists:
 %if disttype == ['Normal'] || disttype == ['Uniform'] || disttype == ['Bigaussian']
@@ -236,6 +238,9 @@ legend('Recovered','Original','Location','Southeast')
 set(gca,"FontSize",20)
 CDFfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'CDF','.jpg');
 saveas(gcf,CDFfiglabel);
+CDFfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'CDF','.fig');
+saveas(gcf,CDFfiglabel);
+
 % figure
 %     %X = linspace(0,4*pi,40);
 %     %clr = cool(length(concvecS));
@@ -309,7 +314,8 @@ ylabel('Aggregated Tumor Volume')
 set(gca,"FontSize",20)
 Fitfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'Fit','.jpg');
 saveas(gcf,Fitfiglabel);
-%keyboard
+Fitfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'Fit','.fig');
+saveas(gcf,Fitfiglabel);
 
 
 %compare output of fmincon with original dist on same scaled axes (no lines between recovered pts)
@@ -319,10 +325,14 @@ if strcmp(disttype,'Uniform') == 1 || strcmp(disttype,'Normal') == 1 || strcmp(d
     ylabel('Proportion of Population')
     hold on
     plot(sgrid,sprobs*length(sprobs)/(sum(sprobs)*length(optweightfromAIC)),'--o','MarkerSize',8,'LineWidth',2,'Color','red')
+    limsy=get(gca,'YLim');
+    set(gca,'Ylim',[0 limsy(2)]);
     legend('Recovered','Original','Location','northeast')
     xlabel('Sensitivity to Treatment {\it s}')
     set(gca,"FontSize",20)
     PMFfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'Dists_samescale','.jpg');
+    saveas(gcf,PMFfiglabel);
+    PMFfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'Dists_samescale','.fig');
     saveas(gcf,PMFfiglabel);
 end
 
