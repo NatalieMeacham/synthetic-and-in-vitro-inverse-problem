@@ -137,7 +137,6 @@ end
 %create a matrix that fills in the optweight corresponding to the lowest
 %AIC value for each conc
 %modified with dropped nans
-%concnum=length(concvec);
 concnum=length(concvecA);
 AICminvec=zeros(concnum,1);
 AICcheck=zeros(concnum,1);
@@ -151,10 +150,7 @@ for a=1:length(concvecA)
     k=kvec(concvecA(a));
     [M,I]=min(AICmat(a,:));
     AICminvec(a)=rpointsvec(I);
-    %data=meanmatnorm(a,:);
-    %y0=meanmatnorm(a,1);
     y0=data(1);
-    %tspan=tspan(1:tspanvec(a));
     [optweight,~,~,~,~]=GLSInverseFnNData(rho,k,y0,tspanS,AICminvec(a),data);
     optmat(a,1:AICminvec(a))=optweight;
 end
@@ -204,10 +200,6 @@ meanmatnormS=meanmatnorm;
 figure
 for a=1:length(concvecS)
     hold on
-    %plot(trymatoptrsgridS(a,1:AICminvecS(a)),optmatS(a,1:AICminvecS(a)),'LineWidth',2,'Color',clr(a,:))
-    %plot(trymatoptrsgridS(a,1:AICminvecS(a)),optmatS(a,1:AICminvecS(a)),'--o','MarkerSize',8,'LineWidth',2,'Color',clr(a,:))
-    %plot(trymatoptrsgridS(a,1:AICminvecS(a)),optmatS(a,1:AICminvecS(a)),'--o','MarkerSize',8,'LineWidth',2,'MarkerEdgeColor',clr(a,:),'MarkerFaceColor',clr(a,:))
-    % plot(trymatoptrsgridS(a,1:AICminvecS(a)),optmatS(a,1:AICminvecS(a)),'--o','Color',clr(a,:),'MarkerFaceColor',clr(a,:),'MarkerSize',8,'LineWidth',2)
     % %real one ^
     stem(trymatoptrsgridS(a,1:AICminvecS(a)),optmatS(a,1:AICminvecS(a)),'--o','Color',clr(a,:),'MarkerFaceColor',clr(a,:),'MarkerSize',8,'LineWidth',2)
     
@@ -281,24 +273,3 @@ for a=1:length(concvecS)
     optweight=optmatS(a,1:AICminvecS(a));
     evvec(a)=sum(optrsgrid.*optweight);
 end
-% %%
-% %plot data with error bars
-% %figure
-% for a=1:length(concvecS)
-%     figure
-%     errorbar(tspanmat(a,1:tspanvec(a)),meanmatnorm(a,:),errmat(a,:),'Color',clr(a,:))
-%     title(num2str(a))    %hold on
-% end 
-% figure
-% plot(concvecS,evvec,'o','LineWidth',2)
-% hold on
-% xlabel('Concentration Number')
-% ylabel('Mean Sensitivity')
-% set(gca,"FontSize",20)
-% 
-% figure
-% plot(dosevec,evvec,'o','LineWidth',2)
-% hold on
-% xlabel('Dosage Values')
-% ylabel('Mean Sensitivity')
-% set(gca,"FontSize",20)
