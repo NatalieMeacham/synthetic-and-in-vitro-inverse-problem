@@ -1,5 +1,7 @@
-clc
-clear all
+function [AICminvec, trymatoptrsgridS, optmatS, cdfRmatS, wsolmat,evvec,concvecS]=GLSAllDataInclNaNsPaper(choosedata,figures)
+
+% clc
+% clear all
 %The goal of this script is to update GLSInverseScriptData by using the
 %drug concentration values given by PhenoPop to individualize the growth
 %and death rates for every concentration
@@ -8,7 +10,7 @@ clear all
 
 format long
 
-choosedata=['BF41']; %choose between R250, R500, S500, and S1000
+%choosedata=['R500']; %choose between R250, R500, S500, and S1000
 %or BF11,BF12,BF21,BF41
 %rho=0.3; %originially chosen from phenopop to be 0.3
 %k=0.15; %originially chosen arbitrarily to be 0.15
@@ -55,9 +57,9 @@ elseif choosedata=='S100'
     kmin=0;
     %kmin= -0.046240802804395; %if we allow neg death term
     %kmax=0.0077; %from 9th row
-    kmax=0.004705245484133; %for regular death term for s100
+    %kmax=0.004705245484133; %for regular death term for s100
     %kmax=0.068991914276888 %for death term with rho for s100
-    %kmax=0.004740638815982 %for logistic death term for s100
+    kmax=0.004740638815982 %for logistic death term for s100
 else
     disp('??')
 end
@@ -122,7 +124,7 @@ rpointsvec=4:1:30;
 AICmat=zeros(length(concvecA),length(rpointsvec));
 for a=1:length(concvecA)
     data=meanmatnorm(a,1:tspanvec(a));
-    %keyboard
+    %keyboard 
     y0=data(1);
     rho=rhovec(concvecA(a));
     k=kvec(concvecA(a));
@@ -200,6 +202,22 @@ AICminvecS=AICminvec;
 cdfRmatS=cdfRmat; 
 meanmatnormS=meanmatnorm;
 
+wsolmat=zeros(length(concvecS),length(tspan));
+for a=1:length(concvecS)
+    rho=rhovec(concvecA(a));
+    k=kvec(concvecA(a));
+    data=meanmatnorm(a,1:tspanvec(a));
+    tspanS=tspanmat(a,1:tspanvec(a));
+    y0=data(1);
+    optrpoints=AICminvecS(a);
+    optrsgrid=linspace(0,1,optrpoints);
+    optweight=optmatS(a,1:AICminvecS(a));
+    [~, ~,weightedsol] = ForwardFunctionN(optrsgrid, optweight, rho, k, y0, tspanS);
+    wsolmat(a,1:length(tspanS))=weightedsol;
+end
+
+if figures == 'y'
+
 %PLOT PDFS CORRECTLY
 figure
 for a=1:length(concvecS)
@@ -239,29 +257,30 @@ set(gca,"FontSize",20)
 end
 
 %plot data vs weightedsol for non-nan concentrations NEW VERSION
-wsolmat=zeros(length(concvecS),length(tspan));
+% wsolmat=zeros(length(concvecS),length(tspan));
 figure
 for a=1:length(concvecS)
-    %define rsgrid for each a
+   %  %define rsgrid for each a
     rho=rhovec(concvecA(a));
-    k=kvec(concvecA(a));
-    %data=meanmatnormS(a,:);
-    data=meanmatnorm(a,1:tspanvec(a));
-    %keyboard
+     k=kvec(concvecA(a));
+     %data=meanmatnormS(a,:);
+     data=meanmatnorm(a,1:tspanvec(a));
+   %  %keyboard
     tspanS=tspanmat(a,1:tspanvec(a));
-    %keyboard
-    y0=data(1);
-    optrpoints=AICminvecS(a);
-    optrsgrid=linspace(0,1,optrpoints);
-    optweight=optmatS(a,1:AICminvecS(a));
-   % keyboard
-    [~, ~,weightedsol] = ForwardFunctionN(optrsgrid, optweight, rho, k, y0, tspanS);
-    wsolmat(a,1:length(tspanS))=weightedsol;
+   %  %keyboard
+     y0=data(1);
+     optrpoints=AICminvecS(a);
+     optrsgrid=linspace(0,1,optrpoints);
+     optweight=optmatS(a,1:AICminvecS(a));
+   % % keyboard
+   [~, ~,weightedsol] = ForwardFunctionN(optrsgrid, optweight, rho, k, y0, tspanS);
+   %  wsolmat(a,1:length(tspanS))=weightedsol;
     clr = hsv(length(concvecS));    %# LINES colormap
     %plot(tspanS,data,'d','Color',clr(a,:),'MarkerFaceColor',clr(a,:),'MarkerSize',8,'LineWidth',2,'HandleVisibility','off') %version without error bar
     errorbar(tspanS,data,errmat(a,1:tspanvec(a)),'.','MarkerSize',8,'LineWidth',2,'Color',clr(a,:),'HandleVisibility','off')
     hold on
     plot(tspanS,weightedsol,'LineWidth',2,'Color',clr(a,:))
+    %plot(tspanS,wsolmat(a,1:length(tspanS)),'LineWidth',2,'Color',clr(a,:))
     hold on
     % xlabel('Time (Hours)')
     % ylabel('Tumor Growth Data and Model Fit')
@@ -272,6 +291,10 @@ xlabel('Time (Hours)')
     ylabel('Tumor Growth Data and Model Fit')
     legend(Legend3, 'FontSize',12,'Location','northwest')
     set(gca,"FontSize",20)
+
+else
+    disp('no figures')
+end
 
 %compute expected value of the recovered dist
 evvec=zeros(length(concvecS),1);

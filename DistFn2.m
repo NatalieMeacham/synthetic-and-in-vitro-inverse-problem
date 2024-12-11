@@ -16,26 +16,54 @@ if string(disttype) == 'Normal' %this should be cts
 %     %sprobs=normal(sgrid)
 %     sprobs = normpdf(sgrid,mu,sigma); 
  elseif string(disttype) == 'Bigaussian' %this should be cts 
+     %main paper figure (equally weighted bumps with different SDs)
      mu1=.3;
      mu2=.7; 
      sigma1=.05;
-     %sigma2=.1; %originally 0.1
-     sigma2=0.08
-     % weight1=.1;
-     % weight2=.9;
-    % sigma1=.1; %original 
-    % sigma2=.05; %original
-       % sigma1 = 0.05
-       % sigma2 = 0.05 %evening version
-     %weight1=.9; %typically use this pair
-     % weight2=.1;
-     % weight1=.1;
-     % weight2=.9;
-      %weight1=.3;
-     %weight2=.7;
-      weight1 = 0.5; %paper new version
+     sigma2=.1; %originally 0.1
+     weight1 = 0.5; %paper new version
      weight2 = 0.5;
-     %  %bigaussian = @(x) (1/(sigma1*sqrt(2*pi)))*exp(-.5*((x - mu1)/sigma1).^2) + (1/(sigma2*sqrt(2*pi)))*exp(-.5*((x - mu2)/sigma2).^2);
+
+     % % %original figure (wider, more heavily weighted left bump)
+     % mu1=.3;
+     % mu2=.7; 
+     % sigma1=.1;
+     % sigma2=.05;
+     % weight1=.9; %typically use this pair
+     % weight2=.1;
+
+     % % % % %original figure with sides swapped
+     % mu1=.3;
+     % mu2=.7; 
+     % sigma2=.1;
+     % sigma1=.05;
+     % weight2=.9; %typically use this pair
+     % weight1=.1;
+
+     % %equally sized and weighted bumps
+     % mu1=.3;
+     % mu2=.7; 
+     % sigma1=.05;
+     % sigma2=.05;
+     % weight1=.5; %typically use this pair
+     % weight2=.5;
+
+     % %narrower equally sized and weighted bumps
+     % mu1=.3;
+     % mu2=.7; 
+     % sigma1=.01;
+     % sigma2=.01;
+     % weight1=.5; %typically use this pair
+     % weight2=.5;
+
+     % %equally sized and weighted bumps farther apart 
+     % mu1=.15;
+     % mu2=.85; 
+     % sigma1=.05;
+     % sigma2=.05;
+     % weight1=.5; %typically use this pair
+     % weight2=.5;
+
      bigaussian = @(x) weight1*(1/(sigma1*sqrt(2*pi)))*exp(-.5*((x - mu1)/sigma1).^2) + weight2*(1/(sigma2*sqrt(2*pi)))*exp(-.5*((x - mu2)/sigma2).^2);
      sprobs=bigaussian(sgrid);
      sprobs = sprobs/(trapz(sgrid,sprobs));        % Truncated to ensure it is a odf
