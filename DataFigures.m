@@ -1,7 +1,6 @@
 %%run inverse problem for one chosen dataset
-choosedata=['S100']
-figures = ['y'];
-
+choosedata=['S500']
+figures = ['y']
 [AICminvec, trymatoptrsgridS, optmatS, cdfRmatS, wsolmat,evvec,concvecS]=GLSAllDataInclNaNsPaper(choosedata,figures);
 %[AICminvec, trymatoptrsgridS, cdfRmatS, wsolmat]=GLSAllDataInclNaNsPaper(choosedata,figures)
 %[AICminvec, trymatoptrsgridS, optmatS]=GLSAllDataInclNaNsPaper(choosedata,figures);

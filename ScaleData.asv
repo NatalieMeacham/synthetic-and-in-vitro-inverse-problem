@@ -61,13 +61,10 @@ else
     maxval=5*max(meanmat,[],'all');
 end
 
-maxval1=max(RESISTANT_250_BF);
-maxval2=max(RESISTANT_500_BF);
-maxval3=max(SENSITIVE_500_BF);
-maxval4=max(SENSITIVE_1000_BF);
-maxlist=[maxval1,maxval2, maxval3,maxval4];
-maxval=10*max(maxlist,[],'all');
-%maxval=150000
+maxval1=max(RESISTANT_250_BF)
+maxval2=max(RESISTANT_500_BF)
+maxval3=max(SENSITIVE_500_BF)
+maxval4=10*max(RESISTANT_250_BF,RESISTANT_500_BF,SENSITIVE_500_BF,SENSITIVE_1000_BF);
 
 %normalize the data
 

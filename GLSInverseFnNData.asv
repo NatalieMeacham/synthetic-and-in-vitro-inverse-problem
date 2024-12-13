@@ -48,7 +48,7 @@ ub(1:rpoints)=1;
 %uniform s0
 s0=ones(rpoints,1); %to get a uniform dist.
 s0=s0/sum(s0); %normalize
-init_guess=s0;
+init_guess=s0';
 
 %Weights for use in PEerrorfn 
 gammas=1;

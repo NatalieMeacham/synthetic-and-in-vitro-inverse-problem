@@ -110,6 +110,8 @@ for i=1:length(dosevec)
     rhovec(i)=scaledosevec(i)*rhodiff + rhomin;
 end
 
+rhovec=rhomax*ones(length(dosevec)); %NOTE THIS OVERRIDES PREVIOUS RHOVEC
+
 tinit=9;
 tfinal=48;
 tspan=linspace(tinit,tfinal,(tfinal-tinit)/3 + 1);
