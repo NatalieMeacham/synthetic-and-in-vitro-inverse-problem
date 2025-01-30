@@ -23,7 +23,7 @@ kmin=0;
 %k=0;
 %rho=0.0653;
 %rho=0.0682;
-rhomax=0.0682;
+rhomax=0.0692;
 %rhomax=0.0692
 %rhomax=0.0721;
 %rhomin=0.0237;
@@ -37,13 +37,13 @@ if choosedata=='R250'
     rhomax=0.0692; %from first row
     kmin=0;
     %kmin=-0.062361366641783; %when neg k is allowed
-    kmax=0.0019; %just chose lower option
+    kmax=0.0077; %just chose larger option
 elseif choosedata=='R500'
     rhomin=0.0375;
     rhomax=0.0682; 
     kmin=0;
     %kmin=-0.061447543419865; %when neg k is allowed 
-    kmax=0.0019; %just chose lower option
+    kmax=0.0077; %just chose larger option
     %kmax = 0.004; %experimenting 
 elseif choosedata=='S500'
     rhomin=0.0241; %just chose lower option
@@ -56,10 +56,10 @@ elseif choosedata=='S100'
     rhomax=0.0692; %just chose higher option 
     kmin=0;
     %kmin= -0.046240802804395; %if we allow neg death term
-    %kmax=0.0077; %from 9th row
+    kmax=0.0077; %from 9th row
     %kmax=0.004705245484133; %for regular death term for s100
     %kmax=0.068991914276888 %for death term with rho for s100
-    kmax=0.004740638815982 %for logistic death term for s100
+    %kmax=0.004740638815982 %for logistic death term for s100
 else
     disp('??')
 end
