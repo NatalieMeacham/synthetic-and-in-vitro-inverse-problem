@@ -239,6 +239,8 @@ legend(Legend, 'FontSize',12)
 legend(Legend2, 'FontSize',12)
 legend(Legend3, 'FontSize',12,'Location','northwest')
 set(gca,"FontSize",20)
+saveas(gcf,strcat(choosedata,'PDF.fig'));
+saveas(gcf,strcat(choosedata,'PDF.png'));
 
 %plot cdfs again w stair fn
 figure
@@ -257,6 +259,8 @@ ylabel('Cumulative Recovered Proportion')
 legend(Legend3, 'FontSize',12,'Location','northwest')
 set(gca,"FontSize",20)
 end
+saveas(gcf,strcat(choosedata,'CDF.fig'));
+saveas(gcf,strcat(choosedata,'CDF.png'));
 
 %plot data vs weightedsol for non-nan concentrations NEW VERSION
 % wsolmat=zeros(length(concvecS),length(tspan));
@@ -293,7 +297,8 @@ xlabel('Time (Hours)')
     ylabel('Tumor Growth Data and Model Fit')
     legend(Legend3, 'FontSize',12,'Location','northwest')
     set(gca,"FontSize",20)
-
+saveas(gcf,strcat(choosedata,'Fit.fig'));
+saveas(gcf,strcat(choosedata,'Fit.png'));
 else
     disp('no figures')
 end
