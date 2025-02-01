@@ -71,6 +71,7 @@ while ii<maxits & parchange > partol & oldparchange > partol | ii< minits %WHERE
 errtomin=@(par)PEerrorfn(par,gencmatC,data,weights);
 options = optimoptions(@fmincon,'Display','iter','Algorithm','sqp','MaxIterations',550); 
 [gls_optpar,~,~,~]=fmincon(errtomin, old_gls_optpar, [], [], Aeq, beq, lb, ub, [], options); %without converge flag
+%keyboard
 converge_flag=1;
 [~, ~,weights] = ForwardFunctionN(rsgrid, gls_optpar', rho, k, y0, tspan); 
 %weights is from the weightedsol so here would be c
@@ -114,7 +115,7 @@ gls_optpar;
 %AIC SECTION
 %take error where s is given by optweight for AIC
 %[current_err,~] = errorfunc_discrete_sparse(optweight,fullsol,agg_sol,weights);
-[finalerr,~]=PEerrorfn(gls_optpar, gencmatC, data,weights);
+[finalerr,weightedsol]=PEerrorfn(gls_optpar, gencmatC, data,weights);
 
 tpoints=length(tspan); 
 
