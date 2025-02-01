@@ -201,5 +201,29 @@ function [sgrid,sprobs, rsgrid,optweightfromAIC,t,propdata,sweightedsol,cdfS,cdf
         saveas(gcf,PMFfiglabel);
     end
 
+    if strcmp(disttype,'OnePoint') == 1 || strcmp(disttype,'TwoPoints') == 1 
+        figure
+    %plot(rsgrid,optweightfromAIC,'-*','LineWidth',2)
+    %plot(rsgrid,optweightfromAIC,'o','MarkerSize',8,'LineWidth',2,'Color','blue')
+    stem(rsgrid,optweightfromAIC,'--b','MarkerSize',8,'LineWidth',2) %,'MarkerSize,'8,'LineWidth',2,'Color,''blue')
+    %ylabel('Recovered Prop. of Pop.') %original
+    limsy=get(gca,'YLim');
+    set(gca,'Ylim',[0 limsy(2)]);
+    hold on
+    plot(sgrid,sprobs,'--o','MarkerSize',8,'LineWidth',2,'Color','red')
+    legend('Recovered','Original','Location','northeast')
+    xlabel('Sensitivity to Treatment {\it s}')
+    %ylabel('Original Prop. of Pop.') %original version
+    ylabel('Proportion of Population')
+    ylimval=max(max(sprobs),max(optweightfromAIC));
+    ylim([0 ylimval])
+    set(gca,"FontSize",20)
+    PMFfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'DistsOneAxis','.jpg');
+    saveas(gcf,PMFfiglabel);
+    PMFfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'DistsOneAxis','.fig');
+    saveas(gcf,PMFfiglabel);
+    
+    end
+
 
 end

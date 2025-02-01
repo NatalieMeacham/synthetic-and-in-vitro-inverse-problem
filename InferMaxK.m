@@ -10,7 +10,7 @@ load('MONOCLONAL_DATA.mat');
 %T=RESISTANT_500_BF; %last row has NaN, use concvec=linspace(1,concsize-1,concsize-1);
 %T=SENSITIVE_500_BF; %no NaN
 %T=SENSITIVE_1000_BF; %last row has NaN, use concvec=linspace(1,concsize-1,concsize-1);
-choosedata='R500';
+choosedata='S100';
 % constdata=T;
 % sz = size(T);
 % tsize=sz(3);
@@ -25,7 +25,7 @@ tspan=linspace(tinit,tfinal,(tfinal-tinit)/3 + 1);
 
 % concnum=length(concvec);
 
-chooseconc=1;
+chooseconc=9;
 
 % for i=tvec
 %     for j=concvec
@@ -152,6 +152,6 @@ plot(tspan,data,'*','LineWidth',2)
 hold on
 plot(tspan,c,'LineWidth',2)
 legend('Data','Soln. w/ Max. k')
-xlabel('Time')
-ylabel('Most Sensitive S. Population')
+xlabel('Time (Hours)')
+ylabel('Most Sensitive S. Pop.')
 set(gca,"FontSize",20)
