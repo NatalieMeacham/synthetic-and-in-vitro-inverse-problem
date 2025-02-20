@@ -10,7 +10,7 @@ timepoints = [5, 10, 25, 100];
 %     GLSInverseScriptNPaper(disttypes{kk},timepoints(end),noiselevels(1))
 % end
 
-[sgrid,sprobs, rsgrid,optweightfromAIC,t,propdata,sweightedsol,cdfS,cdfR]= GLSInverseScriptNPaper('TwoPoints', 100,0.01);
+[sgrid,sprobs, rsgrid,optweightfromAIC,t,propdata,sweightedsol,cdfS,cdfR]= GLSInverseScriptNPaper('Uniform', 100,0.01);
 %% Noiseless Synthetic Data (Fig 2 in main paper)
 %paper version (100 time points)
 % for kk=1:length(disttypes) 
