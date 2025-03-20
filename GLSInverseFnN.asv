@@ -18,7 +18,6 @@ tspan=linspace(0,tfinal,tpoints);
 %Set up mesh for recovered distribution
 rsgrid = linspace(a,b,rpoints);
 
-%INVERSE PROBLEM
 %Set up constraints for constrained optimization (recovered s dist. must sum to 1 and have nonneg vals)
 %Must sum to 1:
 Aeq=zeros(1,rpoints); 
@@ -65,12 +64,28 @@ old_gls_optpar=gls_optpar;
 end 
 disp('GLS Estimation') 
 gls_optpar 
+ 
 
-%AIC
-%final error between data and aggregated cell density from recovered mesh
+%AIC SECTION
 [finalerr,~]=PEerrorfn(gls_optpar, gencmatC, propdata,weights);
 
 %Compute AIC score for the given points and rpoints here:
 AIC_GLS = (tpoints)*log(sum((weights).*((propdata-(gencmatC*gls_optpar)').^2))/tpoints) + 2*(rpoints + 1);
 
+% plot(sgrid,sprobs,'LineWidth',2)
+% legend('recovered dist.','original dist.')
+% xlabel('sgrid')
+% ylabel('s distribution')
+% %figurename = strcat('F','rp',num2str(rpoints),'sp',num2str(points));
+% %saveas(gcf,figurename)
+
+%%compare weighted csol from optweight with original weightedsol
+%[~,~,sweightedsol] = ForwardFunction(rsgrid, optweight', rho, k, y0, tspan);
+%figure 
+%plot(t,sweightedsol,'LineWidth',2)
+%hold on
+%plot(t,weightedsol','*')
+%hold off
+%legend('Soln. w. optweight','Soln. w. sprobs')
+%%keyboard
 end

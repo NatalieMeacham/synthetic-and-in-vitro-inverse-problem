@@ -1,31 +1,54 @@
-function [sgrid,sprobs, rsgrid,optweightfromAIC,t,propdata,sweightedsol,cdfS,cdfR]= GLSInverseScriptC(disttype, tpoints,noisesize)
-    
+%function [sgrid,sprobs, rsgrid,optweightfromAIC,t,propdata,sweightedsol,cdfS,cdfR]= GLSInverseScriptC(disttype, tpoints,noisesize)
+a=0;
+b=1;
+points=11;
+sgrid=linspace(a,b,points);
+
+%sprobs=DistFn2('Bigaussian',sgrid,a,b);
+
+rho=0.3;
+k=0.45;
+y0=0.2;
+tfinal=10;
+tpoints=25;
     %Declare variables 
-    points=101; 
-    tfinal=50;
+    %points=101; 
     tspan=linspace(0,tfinal,tpoints);
     pointsstr=string(points);
+    noisesize=0.01;
     noisestr=string(noisesize);
-
-    %Parameters for synthetic data
-    rho=0.3;
-    k=0.45;
-    y0=.2;
-    
-    %Define sensitivity mesh
-    a=0;
-    b=1;
-    sgrid=linspace(a,b,points);
     
     %Create original distribution, synthetic data, add noise
+    disttype='Bigaussian';
     [sprobs] = DistFn2(disttype,sgrid,a,b);
  
     %Generate synthetic data with proportional error
-    [t, cmat,weightedsol] = RK4FunctionC(sgrid, sprobs, rho, k, y0, tspan);
+    [t, cmat,weightedsol,uvec] = RK4FunctionC(sgrid, sprobs, rho, k, y0, tspan);
     propdata=weightedsol.*(1 + noisesize*randn(size(weightedsol)));
     
+%figure
+%plot(sgrid,sprobs)
+
+    figure
+    plot(tspan,weightedsol)
+    hold on
+    plot(tspan,uvec,'--')
+    hold on
+    plot(tspan,propdata,'*')
+    legend('weightedsol','uvec','propdata')
+
+%figure
+for i=1:points
+    plot(t,cmat(:,i))
+    hold on
+end
+plot(t,weightedsol)
     %%
-    
+
+    %run IP once
+    rpoints=5
+    [gls_optpar,converge_flag,AIC_GLS,sgrid,sprobs,weightedsol,rsgrid]=GLSInverseFnC(points,disttype,rho,k,y0,tfinal,tpoints,noisesize,rpoints,propdata)
+    %%
     %Loop through IP over different meshes -> find optimal mesh
     rpointsvec=4:1:30;
     AICvec=zeros(length(rpointsvec),1);
@@ -136,7 +159,7 @@ function [sgrid,sprobs, rsgrid,optweightfromAIC,t,propdata,sweightedsol,cdfS,cdf
     %saveas(gcf,CDFfiglabel);
     
     
-    [t,~,sweightedsol] = RK4FunctionC(rsgrid, optweightfromAIC', rho, k, y0, tspan);
+    [t,~,sweightedsol,~] = RK4FunctionC(rsgrid, optweightfromAIC', rho, k, y0, tspan);
     figure
     plot(t,sweightedsol,'LineWidth',2,'Color','blue')
     hold on
@@ -151,8 +174,6 @@ function [sgrid,sprobs, rsgrid,optweightfromAIC,t,propdata,sweightedsol,cdfS,cdf
     %saveas(gcf,Fitfiglabel);
     %Fitfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'Fit','.fig');
     %saveas(gcf,Fitfiglabel);
-
-    keyboard
     
     
     %compare output of fmincon with original dist on same scaled axes (no lines between recovered pts)
@@ -193,4 +214,4 @@ function [sgrid,sprobs, rsgrid,optweightfromAIC,t,propdata,sweightedsol,cdfS,cdf
     end
 
 
-end
+%end

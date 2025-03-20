@@ -84,8 +84,5 @@ weightedsol=(sprobs./(sum(sprobs)))*cmat';
 %weightedsol=weightedsol';
 t=tspan;
 t=t';
-% figure
-% plot(t,uvec)
-% hold on
-% plot(t,weightedsol,'*')
+keyboard
 end

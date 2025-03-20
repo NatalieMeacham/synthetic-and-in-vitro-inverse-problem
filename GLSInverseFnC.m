@@ -1,18 +1,15 @@
-function[gls_optpar,converge_flag,AIC_GLS,sgrid,sprobs,weightedsol,rsgrid]=GLSInverseFnN(points,disttype,rho,k,y0,tfinal,tpoints,noisesize,rpoints,propdata)
+function[gls_optpar,converge_flag,AIC_GLS,sgrid,sprobs,weightedsol,rsgrid]=GLSInverseFnC(points,disttype,rho,k,y0,tfinal,tpoints,noisesize,rpoints,propdata)
 
 %FORWARD PROBLEM
 %Create synthetic data
-%points=50; 
-a=0; 
-b=1;
-sgrid=linspace(a,b,points);
+ a=0; 
+ b=1;
+ sgrid=linspace(a,b,points);
 % 
 % %Create original distribution
 [sprobs] = DistFn2(disttype,sgrid,a,b);
 
 %Compute tspan for ode45 to use
-%tfinal=10;
-%tpoints=25;
 tspan=linspace(0,tfinal,tpoints); 
 
 %Other parameters
@@ -20,20 +17,14 @@ tspan=linspace(0,tfinal,tpoints);
 % k=1.5;
 % y0=.2; 
 
-%rho=0.3;
-%k=0.45;
-%y0=0.2;
-%tspan=linspace(0,10,25);
-
 %Forward function to get weightedsol
-[t, cmat,weightedsol, uvec] = RK4FunctionC(sgrid, sprobs, rho, k, y0, tspan);
+[t, cmat,weightedsol] = RK4FunctionC(sgrid, sprobs, rho, k, y0, tspan);
 
 %Create synthetic data by adding some noise to weightedsol:
 %noisesize=0.1;
 %propdata = weightedsol.*(1+noisesize*rand(size(weightedsol)));
 
 %PARAMETER ESTIMATION
-%rpoints=6;
 rsgrid = linspace(a,b,rpoints);
 
 %Set up constraints for constrained optimization (ie s must sum to 1 and have nonneg vals)
@@ -53,7 +44,7 @@ ub(1:rpoints)=1;
 %uniform s0
 s0=ones(rpoints,1); %to get a uniform dist.
 s0=s0/sum(s0); %normalize
-init_guess=s0;
+init_guess=s0';
 
 %Weights for use in PEerrorfn 
 gammas=1;
@@ -72,13 +63,13 @@ ii=1; %initialize number of iterations
 %while ii<maxits && parchange > partol && oldparchange > partol || ii< minits 
 while ii<maxits & parchange > partol & oldparchange > partol | ii< minits 
 %gls_error_estimate = @(par)gls_formulation(par,prop_data,ts,y0,weights); 
-[t, gencmatC,~,~] = RK4FunctionC(rsgrid, ones(size(rsgrid)), rho, k, y0, tspan);
-errtomin=@(par)PEerrorfnC(par,gencmatC,propdata,weights);
+[t, gencmatC,~] = RK4FunctionC(rsgrid, ones(size(rsgrid)), rho, k, y0, tspan);
+errtomin=@(par)PEerrorfn(par,gencmatC,propdata,weights);
 options = optimoptions(@fmincon,'Display','iter','Algorithm','sqp','MaxIterations',550); 
 %gls_optpar=FMINCON (set up Aeq etc.) 
-[gls_optpar,~,converge_flag,~]=fmincon(errtomin, old_gls_optpar, [], [], Aeq, beq, lb, ub, [], options);
+[gls_optpar,~,converge_flag,~]=fmincon(errtomin, s0, [], [], Aeq, beq, lb, ub, [], options);
 %pause
-[~, ~,weights, ~] = RK4FunctionC(rsgrid, gls_optpar', rho, k, y0, tspan); 
+[~, ~,weights] = RK4FunctionC(rsgrid, gls_optpar', rho, k, y0, tspan); 
 weights(weights<tol)=0; 
 weights(weights>tol)=weights(weights>tol).^(-2*gammas); 
 inds=old_gls_optpar>1e-10; 
@@ -86,6 +77,7 @@ weights=full(weights);
 parchange =1/(2)*sum((abs(gls_optpar(inds)-old_gls_optpar(inds))./old_gls_optpar(inds))); 
 ii = ii+1; 
 old_gls_optpar=gls_optpar; 
+s0=gls_optpar;
 end 
 disp('GLS Estimation') 
 gls_optpar 
@@ -118,12 +110,16 @@ gls_optpar
 %AIC SECTION
 %take error where s is given by optweight for AIC
 %[current_err,~] = errorfunc_discrete_sparse(optweight,fullsol,agg_sol,weights);
-[finalerr,~]=PEerrorfn(gls_optpar, gencmatC, propdata,weights);
+[finalerr,~]=PEerrorfn(gls_optpar, gencmatC, propdata,weights)
+gls_optpar
+weights
+
 
 %Compute AIC score for the given points and rpoints here:
 %AIC_OLS = (points)*log(finalerr/points) + (points)*log((2*pi)+1) + 2*(rpoints + 1);
 %AIC_OLS = (tpoints)*log(finalerr/tpoints) + 2*(rpoints + 1);
 AIC_GLS = (tpoints)*log(sum((weights).*((propdata-(gencmatC*gls_optpar)').^2))/tpoints) + 2*(rpoints + 1);
+%AIC_GLS = (tpoints)*log(sum((weights).*((propdata-(gencmatC*gls_optpar)').^2))/tpoints) + 2*(rpoints + 1);
 %AIC_GLS = (tpoints)*log(sum((weights.^(-2)).*((propdata-(gencmatC*gls_optpar)').^2))/tpoints) + 2*(rpoints + 1) + 2*(rpoints+1)*(rpoints+2)/(tpoints - rpoints);
 
 %NOTE: Banks hints that regular AIC should be used only if the sample size
