@@ -1,7 +1,7 @@
-function [sgrid,sprobs, rsgrid,optweightfromAIC,t,propdata,sweightedsol,cdfS,cdfR]= GLSInverseScriptC(disttype, tpoints,noisesize,figures)
+function [sgrid,sprobs, rsgrid,optweightfromAIC,t,propdata,sweightedsol,cdfS,cdfR]= GLSInverseScriptC(disttype, tpoints,noisesize)
     
     %Declare variables 
-    points=101; 
+    points=11; 
     tfinal=50;
     tspan=linspace(0,tfinal,tpoints);
     pointsstr=string(points);
@@ -51,48 +51,10 @@ function [sgrid,sprobs, rsgrid,optweightfromAIC,t,propdata,sweightedsol,cdfS,cdf
     cmatbeforeIP 
     size(cmatbeforeIP)
 
-    % figure
-    % for i=1:length(rsgrid)
-    %     plot(t,cmatafterIP(:,i),'b')
-    %     hold on
-    % end
-    % for j=1:length(sgrid)
-    %     plot(t,cmatbeforeIP(:,j),'r')
-    %     hold on
-    % end
-
-     %make and plot cdfs to accommodate cts dists:
-    cdfR=zeros(optrpoints,1);
-    cdfS=zeros(points,1);
-    if strcmp(disttype,'Normal') == 1 || strcmp(disttype,'Uniform') ==1 || strcmp(disttype,'Bigaussian') ==1
-        partialsumS=0;
-        cdfS(1)=(1/points)*sprobs(1);
-        for i=2:points
-            partialsumS=trapz(sgrid(1:i),sprobs(1:i));
-            cdfS(i)=partialsumS;
-        end
-        partialsumR=0;
-        for i=1:optrpoints
-            partialsumR=sum(optweightfromAIC(1:i));
-            cdfR(i)=partialsumR;
-        end
-        disp('Here is a cdf for a continuous dist.')
-    elseif strcmp(disttype,'OnePoint') == 1 || strcmp(disttype,'TwoPoints') ==1
-        partialsumS=0;
-        for i=1:points
-            partialsumS=sum(sprobs(1:i));
-            cdfS(i)=partialsumS;
-        end
-        partialsumR=0;
-        for i=1:optrpoints
-            partialsumR=sum(optweightfromAIC(1:i));
-            cdfR(i)=partialsumR;
-        end
-        disp('Here is a cdf for a discrete dist.')
-    end
-    
-
-if figures == 'y'
+    figure
+    for i=1:length(rsgrid)
+        plot(t,cmatafterIP(:,i))
+        hold on
 
     figure
     plot(rpointsvec,AICvec,'LineWidth',2,'Color','blue')
@@ -142,7 +104,36 @@ if figures == 'y'
     %PMFfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'Dists','.fig');
     %saveas(gcf,PMFfiglabel);
     
-   
+    %make and plot cdfs to accommodate cts dists:
+    cdfR=zeros(optrpoints,1);
+    cdfS=zeros(points,1);
+    if strcmp(disttype,'Normal') == 1 || strcmp(disttype,'Uniform') ==1 || strcmp(disttype,'Bigaussian') ==1
+        partialsumS=0;
+        cdfS(1)=(1/points)*sprobs(1);
+        for i=2:points
+            partialsumS=trapz(sgrid(1:i),sprobs(1:i));
+            cdfS(i)=partialsumS;
+        end
+        partialsumR=0;
+        for i=1:optrpoints
+            partialsumR=sum(optweightfromAIC(1:i));
+            cdfR(i)=partialsumR;
+        end
+        disp('Here is a cdf for a continuous dist.')
+    elseif strcmp(disttype,'OnePoint') == 1 || strcmp(disttype,'TwoPoints') ==1
+        partialsumS=0;
+        for i=1:points
+            partialsumS=sum(sprobs(1:i));
+            cdfS(i)=partialsumS;
+        end
+        partialsumR=0;
+        for i=1:optrpoints
+            partialsumR=sum(optweightfromAIC(1:i));
+            cdfR(i)=partialsumR;
+        end
+        disp('Here is a cdf for a discrete dist.')
+    end
+    
     
     figure
     X=rsgrid;
@@ -219,5 +210,5 @@ if figures == 'y'
         %saveas(gcf,PMFfiglabel);
     end
 
-end
+
 end

@@ -1,11 +1,25 @@
-function [t, cmat,weightedsol] = RK4FunctionC(sgrid, sprobs, rho, k, y0, tspan)
+function [t, cmat,weightedsol] = RK4FunctionC(sgrid, sprobs, rho, k, y0, tspan_data)
 %function [h, k1, k2, k3, k4, cmat,weightedsol,uvec,sprobsmat] = RK4FunctionC(tpoints, tfinal, rho, k, sgrid, sprobs, points, y0)
 %cmat=zeros(tpoints,points)
 %tspan=linspace(0,tfinal,tpoints);
 %sprobsthingie?
 %uinit=; %initial u
-h=tspan(2) - tspan(1); %delta t
 
+%h=tspan(2) - tspan(1); %delta t
+tfinal=tspan_data(end);
+tspan_data;
+tspan=linspace(0,tfinal,101);
+h=tspan(1) - tspan(1);
+
+%list of indices of tspan that also have a t_data point
+tdindices = [];
+for i=1:length(tspan)
+    if ismember(tspan(i),tspan_data) == 1
+        tdindices=[tdindices i];
+    end
+end
+
+%tdindices
 dcdt = @(csol,u) rho.*csol.*(1 - u).*(1 - sgrid') - k.*sgrid'.*csol;
 
 tpoints=length(tspan);
@@ -17,7 +31,8 @@ uvec=zeros(tpoints,1);
 y0vec=(y0*ones(points,1))';
 %uvec(1)=sum(y0vec); %do we need to multiply this by p(s) vec?
 uvec(1)=sum((sprobs/sum(sprobs)).*y0vec);
-uvec(1)
+%uvec(1)
+uvec
 %uvec(1)=sum((y0*ones(points,1))'.*sprobs)
 
 %u=sum(csol'.*sprobs)
@@ -29,7 +44,7 @@ cmat=zeros(length(sgrid),length(tspan));
 %cmat(:,1)=y0vec; %new scaled version
 %cmat(:,1)=(y0*ones(points,1))';
 
-disp(size(cmat))
+disp(size(cmat));
 
 %for k=1:points
     cmat(:,1)=y0;
@@ -79,10 +94,23 @@ end
 % for j=1:tpoints
 %     %weightedsol(j)=sum(cmat(:,j)*);
 % end
-cmat=cmat';
-weightedsol=(sprobs./(sum(sprobs)))*cmat';
+cmat=cmat'
+weightedsol=(sprobs./(sum(sprobs)))*cmat'; %old
+%weightedsol=(sprobs./(sum(sprobs)))*cmat; %experimental 
 %weightedsol=weightedsol';
 t=tspan;
 t=t';
-keyboard
+uvec';
+% figure
+% plot(t,uvec,'*')
+% hold on
+% plot(t,weightedsol)
+% legend('uvec','weightedsol')
+% figure
+% plot(t,uvec)
+% hold on
+% plot(t,weightedsol,'*')
+t=t([tdindices]);
+%cmat=cmat(:,[tdindices])
+%weightedsol=weightedsol([tdindices])
 end

@@ -63,7 +63,8 @@ ii=1; %initialize number of iterations
 %while ii<maxits && parchange > partol && oldparchange > partol || ii< minits 
 while ii<maxits & parchange > partol & oldparchange > partol | ii< minits 
 %gls_error_estimate = @(par)gls_formulation(par,prop_data,ts,y0,weights); 
-[t, gencmatC,~] = RK4FunctionC(rsgrid, ones(size(rsgrid)), rho, k, y0, tspan);
+%[t, gencmatC,~] = RK4FunctionC(rsgrid, ones(size(rsgrid)), rho, k, y0, tspan); %former 
+[t, gencmatC,~] = RK4FunctionC(rsgrid, s0', rho, k, y0, tspan); %experimetal
 errtomin=@(par)PEerrorfn(par,gencmatC,propdata,weights);
 options = optimoptions(@fmincon,'Display','iter','Algorithm','sqp','MaxIterations',550); 
 %gls_optpar=FMINCON (set up Aeq etc.) 
