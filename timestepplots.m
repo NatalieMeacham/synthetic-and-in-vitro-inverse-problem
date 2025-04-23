@@ -35,27 +35,28 @@ saveas(gcf,CDFfiglabel);
 
 %plot fits
 figure
-plot(linspace(0,50,100),weightedsol100,'d','LineWidth', 2,'MarkerSize',8,'Color','#0072BD')
+plot(linspace(0,50,101),weightedsol100,'d','LineWidth', 2,'MarkerSize',8,'Color','#0072BD')
 hold on
-plot(linspace(0,50,100),Sweightedsol100,'LineWidth',2,'Color','#0072BD')
+plot(linspace(0,50,101),Sweightedsol100,'LineWidth',2,'Color','#0072BD')
 hold on
-plot(linspace(0,50,25),weightedsol25,'d','LineWidth', 2,'MarkerSize',8,'Color','#6B9C28')
+plot(linspace(0,50,26),weightedsol25,'d','LineWidth', 2,'MarkerSize',8,'Color','#6B9C28')
 hold on
-plot(linspace(0,50,25),Sweightedsol25,'LineWidth',2,'Color','#6B9C28')
+plot(linspace(0,50,26),Sweightedsol25,'LineWidth',2,'Color','#6B9C28')
 hold on
-plot(linspace(0,50,10),weightedsol10,'d','LineWidth', 2,'MarkerSize',8,'Color','#E6AB1A')
+plot(linspace(0,50,11),weightedsol10,'d','LineWidth', 2,'MarkerSize',8,'Color','#E6AB1A')
 hold on
-plot(linspace(0,50,10),Sweightedsol10,'LineWidth',2,'Color','#E6AB1A')
+plot(linspace(0,50,11),Sweightedsol10,'LineWidth',2,'Color','#E6AB1A')
 hold on
-plot(linspace(0,50,5),weightedsol5,'d','LineWidth', 2,'MarkerSize',8,'Color','k')
+plot(linspace(0,50,6),weightedsol5,'d','LineWidth', 2,'MarkerSize',8,'Color','k')
 hold on
-plot(linspace(0,50,5),Sweightedsol5,'LineWidth',2,'Color','k')
+plot(linspace(0,50,6),Sweightedsol5,'LineWidth',2,'Color','k')
 hold on
 plot(t',weightedsol,'-','LineWidth',2,'Color','#A2142F')
 legend('Synthetic Data, N_t=100','Recovered Curve, N_t=100','Synthetic Data, N_t=25','Recovered Curve, N_t=25','Synthetic Data, N_t=10','Recovered Curve, N_t=10','Synthetic Data, N_t=5','Recovered Curve, N_t=5','Original Curve','Location','best','FontSize',12)
 set(gca,"FontSize",20)
 ylabel('Aggregated Tumor Volume')
 xlabel('Time')
+ylim([0 1])
 Fitfiglabel=strcat(disttype,'N',noisestr,'_timepoints_Fit','.jpg');
 saveas(gcf,Fitfiglabel);
 Fitfiglabel=strcat(disttype,'N',noisestr,'_timepoints_Fit','.fig');

@@ -51,6 +51,11 @@ elseif choosedata=='S500'
     kmin=0;
     %kmin=-0.043428075769482; %if we allow neg death term
     kmax=0.0019; %from 10th row
+    %rhomin=0;
+    %rhomax=0.001;
+    %kmax=0; %playing around
+    %kmax=0.027560005168909 %rho-scaled death term
+    %kmax=0.001914686416639 %logistic death term
 elseif choosedata=='S100'
     rhomin=0.0241; %just chose lower option
     rhomax=0.0692; %just chose higher option 
