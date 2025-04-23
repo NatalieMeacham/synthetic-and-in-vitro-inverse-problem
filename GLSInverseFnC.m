@@ -118,8 +118,10 @@ weights
 %Compute AIC score for the given points and rpoints here:
 %AIC_OLS = (points)*log(finalerr/points) + (points)*log((2*pi)+1) + 2*(rpoints + 1);
 %AIC_OLS = (tpoints)*log(finalerr/tpoints) + 2*(rpoints + 1);
-AIC_GLS = (tpoints)*log(sum((weights).*((propdata-(gencmatC*gls_optpar)').^2))/tpoints) + 2*(rpoints + 1);
-%AIC_GLS = (tpoints)*log(sum((weights).*((propdata-(gencmatC*gls_optpar)').^2))/tpoints) + 2*(rpoints + 1);
+%AIC_GLS =
+%(tpoints)*log(sum((weights).*((propdata-(gencmatC*gls_optpar)').^2))/tpoints)
+%+ 2*(rpoints + 1); %THE ONE FROM PAPER 
+AIC_GLS = (tpoints)*log(finalerr/tpoints) + 2*(rpoints + 1);
 %AIC_GLS = (tpoints)*log(sum((weights.^(-2)).*((propdata-(gencmatC*gls_optpar)').^2))/tpoints) + 2*(rpoints + 1) + 2*(rpoints+1)*(rpoints+2)/(tpoints - rpoints);
 
 %NOTE: Banks hints that regular AIC should be used only if the sample size

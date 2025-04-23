@@ -152,7 +152,7 @@ function [sgrid,sprobs, rsgrid,optweightfromAIC,t,propdata,sweightedsol,cdfS,cdf
     %Fitfiglabel=strcat(disttype,'P',pointsstr,'N',noisestr,'Fit','.fig');
     %saveas(gcf,Fitfiglabel);
 
-    keyboard
+    %keyboard
     
     
     %compare output of fmincon with original dist on same scaled axes (no lines between recovered pts)
