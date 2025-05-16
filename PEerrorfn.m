@@ -1,9 +1,7 @@
-%Function that takes in weightedsol and constdata, as well as r, and finds 
-% the sum of squared differences
-
+%find the weighted sum of squared differences between data and model
 function[err,bestapprox]=PEerrorfn(s, gencmatC, data,weights)
 
-bestapprox=(gencmatC*s)'; %bestapprox gets weightedsol by multiplying s*csol
+bestapprox=(gencmatC*s)'; 
 
 err=sum((weights.^(1)).*((bestapprox - data)).^2);
 

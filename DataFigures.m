@@ -1,5 +1,5 @@
-%%run inverse problem for one chosen dataset
-choosedata=['S500']
+    %%run inverse problem for one chosen dataset
+choosedata=['R500']
 figures = ['y']
 [AICminvec, trymatoptrsgridS, optmatS, cdfRmatS, wsolmat,evvec,concvecS]=GLSAllDataInclNaNsPaper(choosedata,figures);
 %[AICminvec, trymatoptrsgridS, cdfRmatS, wsolmat]=GLSAllDataInclNaNsPaper(choosedata,figures)
@@ -42,6 +42,6 @@ xlabel('Log(Dosage)')
 ylabel('Mean Recovered Sensitivity')
 ylim([0 1.02])
 set(gca,"FontSize",20)
-saveas(gcf,'MeanRecoveredSensitivity.fig');
-saveas(gcf,'MeanRecoveredSensitivity.png');
+saveas(gcf,'Figures/MeanRecoveredSensitivity.fig');
+saveas(gcf,'Figures/MeanRecoveredSensitivity.png');
 

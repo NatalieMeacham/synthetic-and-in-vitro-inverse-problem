@@ -28,8 +28,6 @@ tsize=sz(3);
 concsize=sz(2);
 tvec=linspace(1,tsize,tsize);
 concvec=linspace(1,concsize,concsize);
-%concvec=linspace(2,concsize,concsize-1);
-%concvec=linspace(1,concsize-1,concsize-1)
 meanvec = zeros(tsize,1);
 meanmat = zeros(concsize,tsize);
 concnum=length(concvec);
@@ -38,16 +36,12 @@ errmat = zeros(concsize,tsize);
 
 for i=tvec
     for j=concvec
-        %m=mean(T(:,j,i),'omitnan');
         [s,m] = std(T(:,j,i),'omitnan');
-    %m = mean(T(i,:),'omitnan');
-    %meanvec(i)=m;
         meanmat(j,i)= m;
         sdmat(j,i) = s;
         errmat(j,i) = s/sqrt(length(T(:,j,i)) - sum(isnan(T(:,j,i))));
     end
 end
-
 
 if choosedata=='R250'
     maxval=3*max(meanmat,[],'all');
@@ -67,22 +61,13 @@ maxval3=max(SENSITIVE_500_BF);
 maxval4=max(SENSITIVE_1000_BF);
 maxlist=[maxval1,maxval2, maxval3,maxval4];
 maxval=10*max(maxlist,[],'all');
-%maxval=150000
 
-%normalize the data
-
-%probably what I should be doing instead now is to normalize all the data,
-%not just the mean, and then take the mean and sd and error after
-%normalizing 
 meanmatnorm=zeros(size(meanmat));
 
 Tnormalized = T./maxval;
 
 for a=concvec
     for t=tvec
-        %s=meanmat(a,t)/maxval; %multiply by 10 because data still growing?
-        %meanmatnorm(a,t)=s;
-        %
         [s,m] = std(Tnormalized(:,a,t),'omitnan');
         meanmatnorm(a,t)= m;
         sdmat(a,t) = s;
