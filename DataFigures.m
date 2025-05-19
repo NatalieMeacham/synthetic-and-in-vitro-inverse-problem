@@ -4,6 +4,7 @@ figures = ['y']
 [AICminvec, trymatoptrsgridS, optmatS, cdfRmatS, wsolmat,evvec,concvecS]=GLSAllDataInclNaNsPaper(choosedata,figures);
 %[AICminvec, trymatoptrsgridS, cdfRmatS, wsolmat]=GLSAllDataInclNaNsPaper(choosedata,figures)
 %[AICminvec, trymatoptrsgridS, optmatS]=GLSAllDataInclNaNsPaper(choosedata,figures);
+%comment 
 
 %% run inverse problem for all datasets (no figures)
 %%R250, R500, S500, and S1000 or BF11,BF12,BF21,BF41
