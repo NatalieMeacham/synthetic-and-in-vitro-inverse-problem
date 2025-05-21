@@ -1,9 +1,13 @@
 # synthetic-and-in-vitro-inverse-problem
 
-Forward problem: This section of the code defines the model and runs the forward problem for a given sensitivity distribution. 
+Forward problem: This section of the code defines the model and runs the forward problem for a given sensitivity distribution.
+
 	-File to define different initial sensitivity distributions: DistFn2
+ 
 	-File to solve forward problem and get aggregated tumor volume: ForwardFunctionN
+ 
 	-File to generate forward problem results figures for given parameters: ForwardScript
+ 
 	-File to visualize equilibrium analysis from supplementary material: SenseEqAnalysis
 
 Synthetic data inverse problem: This section of the code generates synthetic tumor growth data with proportional error, then solves the inverse problem, comparing the known original curves with the recovered ones. 
