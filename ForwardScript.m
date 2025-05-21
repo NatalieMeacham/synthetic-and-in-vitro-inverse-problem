@@ -1,3 +1,6 @@
+%Solve forward problem for a given initial distribution, growth rate, death
+%rate, and initial condition
+%Generate figure 1 from paper 
 
 %establish sensitivity distribution
 a=0;

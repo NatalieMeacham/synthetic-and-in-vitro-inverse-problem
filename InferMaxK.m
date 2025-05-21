@@ -1,3 +1,6 @@
+%Infer maximum death rate k for each sensitive dataset
+%Generates figure 9 (right) in paper 
+
 clc
 clear all
 
@@ -11,21 +14,23 @@ tspan=linspace(tinit,tfinal,(tfinal-tinit)/3 + 1);
 %choose concentration
 chooseconc=10; 
 
+%scale the data and drop NaNs
 [meanmatnorm,concvec]=ScaleData(choosedata);
-
 [meanmatnorm,isnanmat, tspanvec, tspanmat]=DropNaNsFn(concvec,meanmatnorm,tspan);
 
 data=meanmatnorm(chooseconc,1:tspanvec(chooseconc));
 tspan=tspanmat(chooseconc,1:tspanvec(chooseconc));
-data;
-tspan;
 
+%initial scaled cell count 
 IC=data(1);
+
+%constraints for inverse problem 
 Aeq=[]; 
 beq=[];
 lb=0; 
 ub=1;
 
+%initial guess for k
 k0=0.1;
 
 gammas=1;

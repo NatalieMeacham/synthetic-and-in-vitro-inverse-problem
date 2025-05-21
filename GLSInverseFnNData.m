@@ -1,5 +1,23 @@
 function[gls_optpar,converge_flag,AIC_GLS,weightedsol,rsgrid,finalerr]=GLSInverseFnNData(rho,k,y0,tspan,rpoints,data)
 
+%Core inverse problem function, formulated for the PhenoPop data
+
+%INPUTS
+    %rho: growth rate
+    %k: death rate
+    %y0: initial tumor volume
+    %tspan: time vector
+    %rpoints: number of points in recovered sensitivity mesh
+    %data: in vitro data
+
+%OUTPUTS
+    %gls_optpar: recovered sensitivity distribution
+    %converge_flag: convergence flag
+    %AIC_GLS: AIC score corresponding to gls_optpar
+    %weightedsol: aggregated tumor volume coming from gls_optpar
+    %rsgrid: mesh for gls_optpar
+    %finalerr: final error value
+
 a=0; 
 b=1;
 rsgrid=linspace(a,b,rpoints);
@@ -20,7 +38,7 @@ init_guess=s0;
 
 %weights for use in PEerrorfn 
 gammas=1;
-weights=ones(size(tspan)); %doesn't need to be input
+weights=ones(size(tspan)); 
 
 gls_optpar=init_guess; %initial optpar 
 old_gls_optpar=init_guess; %initial old optpar 

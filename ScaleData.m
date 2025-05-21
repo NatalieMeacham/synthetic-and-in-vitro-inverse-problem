@@ -1,5 +1,16 @@
 function [meanmatnorm,concvec,errmat]=ScaleData(choosedata)
 
+%Scale data between 0 and 1
+
+%INPUTS
+    %choosedata: choice of dataset
+
+%OUTPUTS
+    %meanmatnorm: matrix of normalized data averaged across dosage
+    %replicates
+    %concvec: vector of concentration levels
+    %errmat: matrix of error values for error bars 
+
 load('MONOCLONAL_DATA.mat');
 load('Mixture_Data.mat');
 
@@ -34,27 +45,7 @@ concnum=length(concvec);
 sdmat = zeros(concsize,tsize);
 errmat = zeros(concsize,tsize);
 
-for i=tvec
-    for j=concvec
-        [s,m] = std(T(:,j,i),'omitnan');
-        meanmat(j,i)= m;
-        sdmat(j,i) = s;
-        errmat(j,i) = s/sqrt(length(T(:,j,i)) - sum(isnan(T(:,j,i))));
-    end
-end
-
-if choosedata=='R250'
-    maxval=3*max(meanmat,[],'all');
-elseif choosedata=='R500'
-    maxval=3*max(meanmat,[],'all');
-elseif choosedata=='S500'
-    maxval=10*max(meanmat,[],'all');
-elseif choosedata=='S100'
-    maxval=10*max(meanmat,[],'all');
-else 
-    maxval=5*max(meanmat,[],'all');
-end
-
+%find max value across monoclonal datasets and multiply it by 10 
 maxval1=max(RESISTANT_250_BF);
 maxval2=max(RESISTANT_500_BF);
 maxval3=max(SENSITIVE_500_BF);
@@ -64,8 +55,10 @@ maxval=10*max(maxlist,[],'all');
 
 meanmatnorm=zeros(size(meanmat));
 
+%normalize dataset using maxval
 Tnormalized = T./maxval;
 
+%compute normalized mean data
 for a=concvec
     for t=tvec
         [s,m] = std(Tnormalized(:,a,t),'omitnan');

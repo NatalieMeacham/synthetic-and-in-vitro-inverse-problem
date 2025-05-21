@@ -1,5 +1,21 @@
 function [meanmatnorm,isnanmat, tspanvec, tspanmat,concvecA]=DropNaNsFn(concvec,meanmatnorm,tspan)
 
+%Remove NaN values from the data and if a concentration of data has too
+%many NaNs, remove that row and adjust the resulting mean data matrix and
+%vector of concentration options 
+
+%INPUTS
+    %concvec: vector of concentration numbers 
+    %meanmatnorm: matrix of normalized mean data 
+    %tspan: time vector
+
+%OUTPUTS
+    %meanmatnorm: adjusted maxtrix of normalized mean data
+    %isnanmat: matrix describing NaN values
+    %tspanvec: vector describing time spans for each concentration
+    %tspanmat: matrix describing time spans for each concentration
+    %concvecA: adjusted set of concentration numbers 
+
 isnanmat=zeros(size(meanmatnorm));
 tspanvec=zeros(length(concvec),1);
 tspanmat=zeros(length(concvec),length(tspan));
@@ -34,7 +50,6 @@ for a=concvec
         concvec(a)=[];
         concvecA=concvec;
     else
-        disp('We have enough non-nans')
         concvecA=concvec;
     end
 end

@@ -1,5 +1,18 @@
 function [sprobs] = DistFn2(disttype,sgrid,a,b)
 
+%Take in the sensitivity mesh and return a continuous or discrete 
+%probability distribution determined by disttype.
+
+%INPUTS
+    %disttype: disttype: distribution type for initial sensitivity
+    %distribution
+    %sgrid: sensitivity mesh, determined by points, a, and b
+    %a: lowest point of sensitivity mesh, always 0
+    %b: highest point of sensitivity mesh, always 1
+
+%OUTPUTS:
+    %sprobs: vector indiciating p(s) for each s value in sgrid
+
 if string(disttype) == 'Normal' %continuous Gaussian distribution
     mu = .5; 
     sigma = .09;
@@ -82,7 +95,7 @@ elseif string(disttype) == 'TwoPoints' %discrete two-point distribution
     sprobs = sprobs/(sum(sprobs));
 
 else 
-    disp('Choose a distribution that works.')
+    disp('Choose an available distribution.')
 end
 
 end

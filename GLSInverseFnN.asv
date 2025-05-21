@@ -19,10 +19,10 @@ function[gls_optpar,converge_flag,AIC_GLS,sgrid,sprobs,weightedsol,rsgrid]=GLSIn
     %gls_optpar: recovered sensitivity distribution
     %converge_flag: convergence flag 
     %AIC_GLS: AIC score for given gls_optpar
-    %sgrid: mesh for original sensitivity distribution
-    %sprobs: original sensitivity distribution
-    %weightedsol: aggregated tumor volume from original distribution
-    %rsgrid: mesh for recovered distribution 
+    %sgrid: 
+    %sprobs
+    %weightedsol
+    %rsgrid
 
 %FORWARD PROBLEM
 %Create synthetic data

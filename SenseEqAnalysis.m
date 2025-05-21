@@ -1,9 +1,10 @@
-%Plot the equilibrium points of the sensitive growth model for varying 
+%Plot the equilibria of the sensitive growth model for varying 
 %rho, k, and s
-%Assess stability of the two equilibria and show its dependence 
+%Assess stability of the two equilibria  
+%Generate supplementary figure 8
 
 sgrid=linspace(0,1,15);
-i=2;
+i=14;
 rho=0.3; 
 k=0.45;
 
@@ -11,6 +12,7 @@ tspan=linspace(0,60,90);
 y0=0.2;
 [t,csol] = ode45(@(t,csol) rho*csol*(1 - csol)*(1 - sgrid(i)) - k*sgrid(i)*csol, tspan, y0); 
 
+%check relationship between s and rho/(rho+k)
 posorneg=rho/(rho+k);
 if sgrid(i)<posorneg 
     disp('The nonzero eq. will be positive')
@@ -20,6 +22,7 @@ else
     disp('The nonzero eq is also zero in this case')
 end
 
+%set up vectors for first plot
 eq1=0;
 eq1vec=ones(length(t),1).*eq1;
 eq2=(rho*sgrid(i) - rho + k*sgrid(i))/(rho*sgrid(i)-rho);
@@ -54,6 +57,7 @@ else
     disp('Unclear whether second nonzero eq. stable or unstable.')
 end
 
+%plot true solution and equilibria
 figure
 plot(t,csol,'r','LineWidth',2)
 hold on
@@ -79,6 +83,7 @@ titlestring=strcat('True Solution for {\it s}=',string(sgrid(i)))
 title(titlestring)
 set(gca,"FontSize",20)
 
+%set up vectors for bifurcation plot
 points=30;
 sgrid=linspace(0,1,points);
 eq2fn= @(i) (rho.*sgrid(i) + k.*sgrid(i) - rho)/(rho.*sgrid(i) - rho); 
@@ -102,6 +107,7 @@ for i=1:101
     afterbivec(i)=eq2fn(i);
 end
 
+%plot bifurcation 
 vec1=linspace(0,1,101);
 vec2=linspace(posorneg,1,101);
 figure

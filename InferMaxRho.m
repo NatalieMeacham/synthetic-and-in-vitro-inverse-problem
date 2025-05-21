@@ -1,8 +1,11 @@
+%Infer minimum and maximum growth rates from each resistant dataset 
+%Generates figure 9 (left) in paper 
+
 clc
 clear all
 
 load('MONOCLONAL_DATA.mat');
-choosedata='S500';
+choosedata='R500';
 
 format short
 tinit=9;
@@ -12,8 +15,8 @@ tspan=linspace(tinit,tfinal,(tfinal-tinit)/3 + 1);
 %choose concentration
 chooseconc=1;
 
+%scale the data and drop NaNs
 [meanmatnorm,concvec]=ScaleData(choosedata);
-
 [meanmatnorm,isnanmat, tspanvec, tspanmat]=DropNaNsFn(concvec,meanmatnorm,tspan);
 
 data=meanmatnorm(chooseconc,1:tspanvec(chooseconc));
@@ -22,13 +25,16 @@ tspan=tspanmat(chooseconc,1:tspanvec(chooseconc));
 figure
 plot(tspan,data)
 
+%initial scaled cell count
 IC=data(1);
 
+%constraints for inverse problem 
 Aeq=[]; 
 beq=[];
 lb=0; 
 ub=[];
 
+%initial guess for rho
 rho0=0.5;
 
 gammas=1;
@@ -43,8 +49,6 @@ partol=0.1; %another tolerance, convergence criteria
 parchange=100; %initialize parameter change, start w smth large  
 oldparchange=100; %initialize old parameter change  
 ii=1; %initialize number of iterations 
-
-%collect each optpar value in a vector to see what's going on
 
 while ii<maxits & parchange > partol & oldparchange > partol | ii< minits 
 errtomin=@(par)ErrorFnFindRho(par, data,tspan,IC,weights);

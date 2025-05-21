@@ -1,21 +1,26 @@
-%Visualize all replicates of a specific dosage for a specific dataset 
+%Visualize all replicates of a specific dosage for a specific dataset.
+%Note that both the dataset choice and the relevant figure legend need to be
+%uncommented.
 
 load('MONOCLONAL_DATA.mat');
 load('Mixture_Data.mat')
-% T=RESISTANT_250_BF; %first row has NaNs
+
+%Uncomment T and Tstring for desired dataset:
+
+% T=RESISTANT_250_BF; 
 %     Tstring="R250";
-% T=RESISTANT_500_BF; %last row has NaN
+% T=RESISTANT_500_BF; 
 %     Tstring="R500";
-T=SENSITIVE_500_BF; %no NaN
-    Tstring="S500";
-%T=SENSITIVE_1000_BF; %last row has NaN
+% T=SENSITIVE_500_BF; 
+%     Tstring="S500";
+%T=SENSITIVE_1000_BF; 
     %Tstring="S100";
 %T=BF_11;
     %Tstring="BF11";
 % T=BF_12;
 %     Tstring="BF12";
-%T=BF_21;
-    %Tstring="BF21";
+T=BF_21;
+    Tstring="BF21";
 %T=BF_41;
     %Tstring="BF41";
 
@@ -56,10 +61,12 @@ for r=1:sz(1)
 end
 
 plot(tspan,meanmat(chooseconc,:),'LineWidth',2)
-legend('Replicate 1','Replicate 2','Replicate 3','Replicate 4','Replicate 5','Replicate 6','Replicate 7','Mean','Location','Northwest')
+%monoclonal data legend
+%legend('Replicate 1','Replicate 2','Replicate 3','Replicate 4','Replicate 5','Replicate 6','Replicate 7','Mean','Location','Northwest')
+%mixture data legend
 legend('Replicate 1','Replicate 2','Replicate 3','Replicate 4','Replicate 5','Replicate 6','Replicate 7','Replicate 8','Replicate 9','Replicate 10','Replicate 11','Replicate 12','Replicate 13','Replicate 14','Mean','Location','Northwest','FontSize',14)
 xlabel('Time')
 ylabel('Number of Cells')
-title(strcat('Dataset',{' '},Tstring,{' '},'for dosage ',{' '},concstr))
+title(strcat('Dataset',{' '},Tstring,{' '},'for Dosage ',{' '},concstr))
 set(gca,"FontSize",20)
 

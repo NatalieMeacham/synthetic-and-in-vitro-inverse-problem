@@ -1,7 +1,6 @@
 function [AICminvec, trymatoptrsgridS, optmatS, cdfRmatS, wsolmat,evvec,concvecS]=GLSAllDataInclNaNsPaper(choosedata,figures)
 
 %Inverse problem built around the needs of the in vitro datasets
-%Note that you can choose to return figures or not as 'y' or 'n'
 
 %INPUTS
     %choosedata: choice of dataset
@@ -9,13 +8,12 @@ function [AICminvec, trymatoptrsgridS, optmatS, cdfRmatS, wsolmat,evvec,concvecS
 
 %OUTPUTS
     %AICminvec: minimum AIC value for each concentration
-    %trymatoptrsgridS: matrix of grids for the recovered distribution for each dosage
-    %optmatS: matrix of optimal distribution for each dosage
-    %cdfRmatS: matrix of recovered CDFs by dosage
-    %wsolmat: aggregated tumor volume from each dosage's optimal
-    %recovered distribution
-    %evvec: mean recovered sensitivity for each dosage
-    %concvecS: vector of relevant concentration numbers 
+    %trymatoptrsgridS: 
+    %optmatS: 
+    %cdfRmatS: 
+    %wsolmat: 
+    %evvec: 
+    %concvecS: 
 
 format long
 

@@ -1,7 +1,22 @@
-%Plot results from different data meshes on same axes/scales 
-%Note inputs are results for 100, 25, 10, and 5 points specifically
-
 function timestepplots(sprobs100,optweightfromAIC100,optweightfromAIC25,optweightfromAIC10,optweightfromAIC5,weightedsol100,weightedsol25,weightedsol10,weightedsol5,Sweightedsol100,Sweightedsol25,Sweightedsol10,Sweightedsol5,disttype,t,weightedsol,noisesize)
+
+%Plot results from different data meshes on same axes/scales 
+%Note inputs are results for 100, 25, 10, and 5 points specifically,
+%meaning the code can't be easily adjusted to other time meshes 
+
+%INPUTS
+    %sprobs100: original sensitivity distribution
+    %optweightfromAIC[number]: recovered distribution for data with
+    %[number] timesteps
+    %weightedsol[number]: aggregated tumor volume for data with [number]
+    %time steps (effectively noiseless synthetic data)
+    %Sweightedsol[number]: fit to the data having [number] time steps
+    %disttype: distribution shape for inital sensitivity distribution
+    %t: time vector for weightedsol
+    %weightedsol: original weighted tumor volume
+    %noisesize: noise size for the synthetic data (only used to save
+    %figures with descriptive names
+
 points = 101;
 noisestr=string(noisesize);
 

@@ -1,5 +1,28 @@
  function [sgrid,sprobs, rsgrid,optweightfromAIC,t,propdata,sweightedsol,cdfS,cdfR]= GLSInverseScriptNPaper(disttype, tpoints, noisesize)
     
+ %Create synthetic data and run the inverse problem on that data.
+ %Generate figures showing recovered fit, PMF, and CDF versus the original
+ %data, PMF/PDF, and CDF respectively. 
+
+ %INPUTS:
+    %disttype: distribution type for initial sensitivity
+    %distribution
+    %tpoints: number of time points in synthetic data
+    %noisesize: proportion up to which forward solution is scaled to get
+    %noisy synthetic data 
+
+ %OUTPUTS
+    %sgrid: sensitivity mesh, determined by points, a, and b
+    %sprobs: sensitivity distribution, determined by sgrid and disttype
+    %rsgrid: sensitivity mesh for optimal recovered distribution
+    %optweightfromAIC: optimal recovered distribution
+    %t: time vector output from forward problem
+    %propdata: synthetic data
+    %sweightedsol: aggregated tumor volume curve from forward problem using
+    %optimal recovered distribution
+    %cdfS: CDF from original distribution (sprobs)
+    %cdfr: CDF from recovered distribution (optweightfromAIC)
+
     %declare variables 
     points=101; 
     tfinal=50;
@@ -118,6 +141,7 @@
     legend('Recovered','Original','Location','Southeast')
     set(gca,"FontSize",20)
     
+    %plot synthetic data versus recovered fit 
     [t,~,sweightedsol] = ForwardFunctionN(rsgrid, optweightfromAIC', rho, k, y0, tspan);
     figure
     plot(t,sweightedsol,'LineWidth',2,'Color','blue')
